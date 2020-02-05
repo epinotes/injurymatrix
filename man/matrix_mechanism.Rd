@@ -21,12 +21,13 @@ Add Selected Mechanisms
 }
 \examples{
 library(dplyr)
-library(purrr)
+library(furrr)
+# plan(multiprocess) # To parallelize
 dat <- data.frame(
   d1 = c("T63023", "X92821", "X99100", "T360x"),
   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 )
 
-dat \%>\% icd_select_mechanism(inj_col = c(1, 2), "untintentional", "assault")
+dat \%>\% matrix_mechanism_mechanism(inj_col = c(1, 2), "firearm", "fall")
 
 }
