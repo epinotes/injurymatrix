@@ -23,8 +23,6 @@ icd_clean_mech_names <- purrr::compose(
 icd_new_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
 
   requireNamespace("dplyr", quietly = T)
-
-  # colvec <- enquo(colvec)
   # assign '1' if the regular expression matched
   f1 <- function(x) grepl(expr, x, ignore.case = ignore.case, perl = perl)
   # any 1 in the diagnosis field suffices

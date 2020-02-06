@@ -1,22 +1,16 @@
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # injurymatrix
-
-<!-- badges: start -->
-
-<!-- badges: end -->
 
 The R package **injurymatrix** purpose is to facilitate the use of the
 [ICD-10-CM injury
 matrix](https://www.cdc.gov/nchs/injury/injury_tools.htm) in data
 analysis.
 
-The package provides two main functions `matrix_intent()` and
+The package provides two main functions: `matrix_intent()` and
 `matrix_mechanism()` to add respectively intent and mechanism of injury
-to the inputed data with optional use of keywords. Try
-*`?matrix_mechanism`* and *`?matrix_intent`* for more information on
-those two functions.
+to the inputed data. The analyst has the option to use keywords to limit
+the query of intent or mechanism. Try *`?matrix_mechanism`* and
+*`?matrix_intent`* for more information on those two functions.
 
 ## Installation
 
@@ -31,6 +25,7 @@ environment:
 ## Examples
 
 ``` r
+# loading relevant packages  
 
 library(tidyverse)
 #> ── Attaching packages ─────────────────────────────────────────────────────── tidyverse 1.3.0 ──
@@ -42,8 +37,10 @@ library(tidyverse)
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(injurymatrix)
+```
 
-# check the data content
+``` r
+# check the content of the dataset used in the examples below.   
 
 set.seed(11)
 
@@ -62,18 +59,31 @@ icd10cm_data150 %>% sample_n(10)
 #>  9 079   T433X2A     F332        K760        Y92002 <NA>  
 #> 10 030   T447X2A     J9600       G9340       <NA>   <NA>
 
-# get the columns with the codes of interest
+# get the indices of the columns with ICD-10_CM. 
 
 grep("diag|ecode", names(icd10cm_data150), ignore.case = T)
 #> [1] 2 3 4 5 6
-# 2 3 4 5 6
 
-# Using matrix_intent(). For more information on the function, try 
-# ?matrix_intent 
+# The indices will be used as arguments in the following functions.  
+```
+
+### Using `matrix_intent()`
+
+  - Without keyword submitted, all the five injury intents are added to
+    the data.  
+  - With keywords (the partial name of the intent will suffice) only the
+    matching intents will be added to the dataset.
+
+<!-- end list -->
+
+``` r
+# ?matrix_intent for more information
+
+# No keyword is used
 
 results_1 <- icd10cm_data150 %>% 
   matrix_intent(inj_col = c(2:6))
-  
+
 results_1
 #> # A tibble: 150 x 11
 #>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault
@@ -92,6 +102,7 @@ results_1
 #> #   Legal_Intervention_War <dbl>, Undetermined <dbl>, Unintentional <dbl>
 
 # table of the injury intent from result_1  
+
 results_1 %>%
 select(-diagnosis_1:-ecode2) %>%
 pivot_longer(cols = -uid,
@@ -108,6 +119,7 @@ summarise_at(vars(count), sum)
 #> 4 Undetermined               4
 #> 5 Unintentional             78
 
+# Keywords used  
 
 results_2 <- icd10cm_data150 %>% 
   matrix_intent(inj_col = c(2:6), "unintent", "undeterm")
@@ -127,9 +139,22 @@ results_2
 #>  9 232   T50902A     J9601       G92         Y9259  <NA>              0
 #> 10 027   J189        G92         J9600       Y92238 <NA>              0
 #> # … with 140 more rows, and 1 more variable: Unintentional <dbl>
+```
 
-# Using matrix_mechanism(). For more information on the function, try 
-# ?matrix_mechanism 
+### Using `matrix_mechanism()`
+
+  - Without keyword submitted, all the 31 injury mechanisms are added to
+    the data.  
+  - With keywords (the partial name of the mechanism will suffice) only
+    the matching mechanisms will be added to the dataset.
+
+<!-- end list -->
+
+``` r
+
+# ?matrix_mechanism for more information 
+
+# No keyword 
 
 results_3 <- icd10cm_data150 %>% 
   matrix_mechanism(inj_col = c(2:6))
@@ -161,6 +186,8 @@ results_3
 #> #   Poisoning_Non_drug <dbl>, Struck_by_against <dbl>, Suffocation <dbl>,
 #> #   Unspecified <dbl>
 
+# Keyword used
+
 results_4 <- icd10cm_data150 %>% 
   matrix_mechanism(inj_col = c(2:6), "firearm", "fall", "pierce")
   
@@ -180,7 +207,8 @@ results_4
 #> 10 027   J189        G92         J9600       Y92238 <NA>            0     0
 #> # … with 140 more rows, and 1 more variable: Firearm <dbl>
 
-# table of selected mechanisms from result_4
+# table of selected mechanisms from result_4  
+
 results_4 %>%
 select(-diagnosis_1:-ecode2) %>%
 pivot_longer(cols = -uid,
@@ -196,10 +224,13 @@ summarise_at(vars(count), sum)
 #> 3 Firearm        0
 ```
 
-## Data included
+## Data included in the `injurymatrix` package
 
-Explore the following dataset use by the functions above:
+Exploring the datasets below that provided the necessary information
+used by the functions described above. Run the following lines of code
+to get more details on the datasets.
 
-`?icd10cm_mech_regex`  
-`?icd10cm_intent_regex`  
-`?injury_matrix_all`
+`library(injurymatix)`  
+`?icd10cm_mech_regex` \# matrix collapsed to the mechanisms  
+`?icd10cm_intent_regex` \# matrix collapsed to the intents  
+`?injury_matrix_all` \# the full matrix
