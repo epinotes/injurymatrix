@@ -1,3 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
+^injurymatrix\.Rcheck$
+^injurymatrix.*\.tar\.gz$
+^injurymatrix.*\.tgz$
+^README\.Rmd$

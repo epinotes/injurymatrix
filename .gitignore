@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+injurymatrix.Rcheck/
+injurymatrix*.tar.gz
+injurymatrix*.tgz

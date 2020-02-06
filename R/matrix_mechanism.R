@@ -17,7 +17,7 @@
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' dat %>% matrix_mechanism_mechanism(inj_col = c(1, 2), "firearm", "fall")
+#' dat %>% matrix_mechanism(inj_col = c(1, 2), "firearm", "fall")
 #'
 matrix_mechanism <- function(data, inj_col, ...) {
 
