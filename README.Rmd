@@ -20,6 +20,7 @@ The R package **injurymatrix** purpose is to facilitate the use of the [ICD-10-C
 
 The package provides two main functions: `matrix_intent()` and `matrix_mechanism()` to add respectively intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism.
 Try *`?matrix_mechanism`* and *`?matrix_intent`* for more information on those two functions. 
+There are more capabilities in the package [useicd10cm](https://github.com/epinotes/useicd10cm) to consider.  
 
 ## Installation
 
