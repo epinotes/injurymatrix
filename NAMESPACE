@@ -2,4 +2,4 @@
 
 export(matrix_intent)
 export(matrix_mechanism)
-importFrom(furrr,future_map2_dfc)
+importFrom(purrr,map2_dfc)

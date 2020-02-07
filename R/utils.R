@@ -26,14 +26,49 @@ icd_new_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
   # assign '1' if the regular expression matched
   f1 <- function(x) grepl(expr, x, ignore.case = ignore.case, perl = perl)
   # any 1 in the diagnosis field suffices
-  f2 <- function(x){
+  f2 <- function(x) {
     sign(rowSums(x, na.rm = TRUE))
   }
 
   data %>% as_tibble() %>%
     select({{colvec}}) %>%
     mutate_all(as.character) %>%
-    furrr::future_map_dfr(f1) %>%
+    purrr::map_dfr(f1) %>%
     transmute(new_diag = f2(.)) %>%
     flatten_dbl()
+}
+
+
+# a row operation that will form a vector of the first match of a pattern.
+
+icd_first_valid_regex <- function(data, colvec, pattern) {
+
+  requireNamespace("dplyr", quietly = T)
+  requireNamespace("purrr", quietly = T)
+
+  f0 <- function(x) grepl(pattern = pattern, x, ignore.case = T, perl = T)
+  f1 <- function(x) detect(x, f0)
+  data %>%
+    select({{colvec}}) %>%
+    map_dfr(as.character) %>%
+    transpose() %>%
+    map(f1) %>%
+    map_if(is.null, ~NA_character_) %>%
+    unlist()
+}
+
+# a row operation that will form an index vector of the first match of a pattern
+
+icd_first_valid_index <- function(data, colvec, pattern) {
+
+  requireNamespace("dplyr", quietly = T)
+  requireNamespace("purrr", quietly = T)
+
+  f0 <- function(x) grepl(pattern = pattern, x, ignore.case = T, perl = T)
+  f1 <- function(x) purrr::detect_index(x, f0)
+  data %>%
+    select({{colvec}}) %>%
+    purrr::map_dfr(as.character) %>%
+    purrr::transpose() %>%
+    purrr::map_int(f1)
 }
