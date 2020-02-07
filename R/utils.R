@@ -72,3 +72,7 @@ icd_first_valid_index <- function(data, colvec, pattern) {
     purrr::transpose() %>%
     purrr::map_int(f1)
 }
+
+# valid external cause
+
+icd10cm__external_cause_ <- "((V|W|X)\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"
