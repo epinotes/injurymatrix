@@ -226,6 +226,66 @@ summarise_at(vars(count), sum)
 #> 3 Firearm        0
 ```
 
+### Create A column of first valid external cause
+
+This example illustrates how to create a first valid external cause
+field.
+
+``` r
+icd10cm__external_cause_ <- "(^[VWX]\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"
+```
+
+The function `icd_first_valid_regex()` in combination with the regular
+expression above, `icd10cm__external_cause_` (It is in the [CSTE
+Toolkit](https://resources.cste.org/ICD-10-CM/Standardized%20Validation%20Datasets/Other%20Useful%20ICD-10-CM%20Regular%20Expressions.pdf))
+will create the first valid external cause field.
+
+``` r
+results_5 <- icd10cm_data150 %>% 
+  mutate(ex_cause1 = icd_first_valid_regex(., colvec = c(2:6), 
+                                           pattern = icd10cm__external_cause_))
+
+results_5
+#> # A tibble: 150 x 7
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2 ex_cause1
+#>    <chr> <chr>       <chr>       <chr>       <chr>   <chr>  <chr>    
+#>  1 051   T82868A     N186        D6859       Y832    <NA>   <NA>     
+#>  2 171   T43011A     G92         E860        <NA>    <NA>   T43011A  
+#>  3 228   T391X1A     D72829      E785        Y92009  <NA>   T391X1A  
+#>  4 071   T383X2A     T471X2A     F329        <NA>    <NA>   T383X2A  
+#>  5 026   T43591A     J449        I10         Y92009  <NA>   T43591A  
+#>  6 172   S72142A     D62         D6832       W010XXA Y92018 W010XXA  
+#>  7 129   T8452XA     A419        D693        Y831    <NA>   <NA>     
+#>  8 197   T43621A     R7881       E876        <NA>    <NA>   T43621A  
+#>  9 232   T50902A     J9601       G92         Y9259   <NA>   T50902A  
+#> 10 027   J189        G92         J9600       Y92238  <NA>   <NA>     
+#> # … with 140 more rows
+```
+
+Adding selected intents to *results\_5* by using the new *ex\_cause1*
+only:
+
+``` r
+results_5 %>% 
+  matrix_intent(inj_col = "ex_cause1", 
+                "unintent", "undeterm")
+#> # A tibble: 150 x 9
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 ex_cause1
+#>    <chr> <chr>       <chr>       <chr>       <chr>  <chr>  <chr>    
+#>  1 051   T82868A     N186        D6859       Y832   <NA>   <NA>     
+#>  2 171   T43011A     G92         E860        <NA>   <NA>   T43011A  
+#>  3 228   T391X1A     D72829      E785        Y92009 <NA>   T391X1A  
+#>  4 071   T383X2A     T471X2A     F329        <NA>   <NA>   T383X2A  
+#>  5 026   T43591A     J449        I10         Y92009 <NA>   T43591A  
+#>  6 172   S72142A     D62         D6832       W010X… Y92018 W010XXA  
+#>  7 129   T8452XA     A419        D693        Y831   <NA>   <NA>     
+#>  8 197   T43621A     R7881       E876        <NA>   <NA>   T43621A  
+#>  9 232   T50902A     J9601       G92         Y9259  <NA>   T50902A  
+#> 10 027   J189        G92         J9600       Y92238 <NA>   <NA>     
+#> # … with 140 more rows, and 2 more variables: Undetermined <dbl>,
+#> #   Unintentional <dbl>
+```
+
 ## Data included in the `injurymatrix` package
 
 Exploring the datasets below that provided the necessary information

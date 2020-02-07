@@ -41,6 +41,22 @@ icd_new_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
 
 # a row operation that will form a vector of the first match of a pattern.
 
+#' a row operation that will form a vector of the first match of a pattern.
+#'
+#'
+#' @param data input data
+#' @param colvec selected columns to match
+#' @param pattern the pattern to match
+
+#' @return return the vector of the matched characters with NA for a no match
+#' @export
+#' @importFrom purrr transpose detect map map_if
+#' @examples
+#' dat <- data.frame(x1 = letters[1:3], x2 = c("d", "a", "e"))
+#' library(dplyr)
+#' library(purrr)
+#' dat %>% mutate(x3 = icd_first_valid_regex(., colvec = c(1:2), pattern = "a"))
+#'
 icd_first_valid_regex <- function(data, colvec, pattern) {
 
   requireNamespace("dplyr", quietly = T)
