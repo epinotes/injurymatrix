@@ -197,6 +197,30 @@ results_7 %>%
 ```
 
 
+### Filter A Dataset With Valid External Cause Of Injury ICD 10 CM    
+
+
+Using the function `matrix_valid_external()` providing the columns with the icd-10-cm of interest.  
+
+```{r}
+# create a new binary variable "valid_external"  
+
+results_8 <- icd10cm_data150 %>% 
+   matrix_valid_external(c(2:6))
+
+results_8
+
+# count the number of records with valid external cause of injury
+results_8 %>% 
+  count(valid_external)
+
+# Subset the dataset to the 136 records with valid external causes of injury.
+
+results_8 %>% 
+  filter(valid_external == 1)
+
+```
+
 
 ## Data included in the `injurymatrix` package
 

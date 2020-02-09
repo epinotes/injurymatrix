@@ -432,6 +432,62 @@ results_7 %>%
 #> #   Unintentional <dbl>
 ```
 
+### Filter A Dataset With Valid External Cause Of Injury ICD 10 CM
+
+Using the function `matrix_valid_external()` providing the columns with
+the icd-10-cm of interest.
+
+``` r
+# create a new binary variable "valid_external"  
+
+results_8 <- icd10cm_data150 %>% 
+   matrix_valid_external(c(2:6))
+
+results_8
+#> # A tibble: 150 x 7
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2 valid_external
+#>    <chr> <chr>       <chr>       <chr>       <chr>   <chr>           <dbl>
+#>  1 051   T82868A     N186        D6859       Y832    <NA>                0
+#>  2 171   T43011A     G92         E860        <NA>    <NA>                1
+#>  3 228   T391X1A     D72829      E785        Y92009  <NA>                1
+#>  4 071   T383X2A     T471X2A     F329        <NA>    <NA>                1
+#>  5 026   T43591A     J449        I10         Y92009  <NA>                1
+#>  6 172   S72142A     D62         D6832       W010XXA Y92018              1
+#>  7 129   T8452XA     A419        D693        Y831    <NA>                0
+#>  8 197   T43621A     R7881       E876        <NA>    <NA>                1
+#>  9 232   T50902A     J9601       G92         Y9259   <NA>                1
+#> 10 027   J189        G92         J9600       Y92238  <NA>                0
+#> # … with 140 more rows
+
+# count the number of records with valid external cause of injury
+results_8 %>% 
+  count(valid_external)
+#> # A tibble: 2 x 2
+#>   valid_external     n
+#>            <dbl> <int>
+#> 1              0    14
+#> 2              1   136
+
+# Subset the dataset to the 136 records with valid external causes of injury.
+
+results_8 %>% 
+  filter(valid_external == 1)
+#> # A tibble: 136 x 7
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2  valid_external
+#>    <chr> <chr>       <chr>       <chr>       <chr>   <chr>            <dbl>
+#>  1 171   T43011A     G92         E860        <NA>    <NA>                 1
+#>  2 228   T391X1A     D72829      E785        Y92009  <NA>                 1
+#>  3 071   T383X2A     T471X2A     F329        <NA>    <NA>                 1
+#>  4 026   T43591A     J449        I10         Y92009  <NA>                 1
+#>  5 172   S72142A     D62         D6832       W010XXA Y92018               1
+#>  6 197   T43621A     R7881       E876        <NA>    <NA>                 1
+#>  7 232   T50902A     J9601       G92         Y9259   <NA>                 1
+#>  8 066   T43012A     J9692       J690        Y92019  W1839XA              1
+#>  9 118   S32810A     S06340A     I2699       V0319XA <NA>                 1
+#> 10 076   T43622A     J9600       T40992A     <NA>    <NA>                 1
+#> # … with 126 more rows
+```
+
 ## Data included in the `injurymatrix` package
 
 Exploring the datasets below that provided the necessary information
