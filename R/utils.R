@@ -20,7 +20,26 @@ icd_clean_mech_names <- purrr::compose(
 
 # finding matches in multiple fields
 
-icd_new_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
+#' Create a new variable based on pattern in the argument expr
+#'
+#' @param data input data
+#' @param expr regular expression describing the pattern of interest
+#' @param colvec indices of variables of interest
+#' @param ignore.case logical
+#' @param perl logical
+#'
+#' @return new variable matching the pattern described in the regular expression
+#' @export
+#' @importFrom purrr flatten_dbl map_dfr
+#'
+#' @examples
+#'
+#' library(dplyr)
+#' library(purrr)
+#' icd10cm_data150 %>%
+#'   mutate(hero = find_diag(., expr = "T401.[1-4]", colvec = c(2:6))) %>%
+#'   count(hero)
+find_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
 
   requireNamespace("dplyr", quietly = T)
   # assign '1' if the regular expression matched
@@ -91,3 +110,31 @@ icd_first_valid_index <- function(data, colvec, pattern) {
 
 # valid external cause
 icd10cm__external_cause_ <- "(^[VWX]\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"
+
+#' Find records with valid external causes of injury icd-10-cm.
+#'
+#' @param data input data
+#' @param diag_ecode_col column indices
+#'
+#' @return valid_external, a binary variable indicating whether the record has (value = 1) a valid external cause of injury icd-10-cm code
+#' @export
+#'
+#' @examples
+#'
+#' library(dplyr)
+#' library(purrr)
+#' set.seed(5)
+#' icd10cm_data150 %>%
+#' matrix_valid_external(diag_ecode_col = c(2:6)) %>%
+#' sample_n(10)
+matrix_valid_external <- function(data, diag_ecode_col) {
+
+requireNamespace("dplyr", quietly = T)
+
+icd10cm__external_cause_ <- "(^[VWX]\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"
+
+data %>%
+  mutate(valid_external = find_diag(.,
+                                       expr = icd10cm__external_cause_,
+                                       colvec = diag_ecode_col))
+}

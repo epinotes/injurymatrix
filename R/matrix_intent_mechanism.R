@@ -1,10 +1,10 @@
-#' Add Selected Mechanisms
+#' Add Selected Intents mechanisms combined
 #'
 #' @param data input data
 #' @param inj_col ecode and diagnosis column indices
 #' @param ... keyword list
 #'
-#' @return return the input with additional mechanism variables
+#' @return return the input with additional combined intent and mechanism variables
 #' @export
 #' @importFrom purrr map2_dfc
 #'
@@ -16,9 +16,9 @@
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' dat %>% matrix_mechanism(inj_col = c(1, 2), "firearm", "fall")
+#' dat %>% matrix_intent_mechanism(inj_col = c(1, 2), "untintentional", "assault")
 #'
-matrix_mechanism <- function(data, inj_col, ...) {
+matrix_intent_mechanism <- function(data, inj_col, ...) {
 
   requireNamespace("dplyr", quietly = T)
   # utility function making ... a regex
@@ -34,8 +34,8 @@ matrix_mechanism <- function(data, inj_col, ...) {
     keywd
   }
 
-  icd10cm_inj <- icd10cm_mech_regex %>%
-    filter(grepl(select_keyword(...), mechanism, ignore.case = T, perl = T))
+  icd10cm_inj <- icd10cm_intent_mech_regex %>%
+    filter(grepl(select_keyword(...), intent_mechanism, ignore.case = T, perl = T))
 
   list_int_mech <- icd10cm_inj %>%
     pull(intent_mechanism)

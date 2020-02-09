@@ -6,13 +6,15 @@ The R package **injurymatrix** purpose is to facilitate the use of the
 matrix](https://www.cdc.gov/nchs/injury/injury_tools.htm) in data
 analysis.
 
-The package provides two main functions: `matrix_intent()` and
-`matrix_mechanism()` to add respectively intent and mechanism of injury
-to the inputed data. The analyst has the option to use keywords to limit
-the query of intent or mechanism. Try *`?matrix_mechanism`* and
-*`?matrix_intent`* for more information on those two functions. There
-are more capabilities in the package
-[useicd10cm](https://github.com/epinotes/useicd10cm) to consider.
+The package provides three main functions: `matrix_intent()`,
+`matrix_mechanism()` and `matrix_intent_mechanism()` to add respectively
+intent only, mechanism only, and combination of intent and mechanism of
+injury to the inputed data. The analyst has the option to use keywords
+to limit the query of intent or mechanism. Try *`?matrix_intent`*,
+*`?matrix_mechanism`* and *`?matrix_intent_mechanism`* for more
+information on those functions. There are more capabilities in the
+package [useicd10cm](https://github.com/epinotes/useicd10cm) to
+consider.
 
 ## Installation
 
@@ -30,12 +32,12 @@ environment:
 # loading relevant packages  
 
 library(tidyverse)
-#> ── Attaching packages ──────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
+#> ── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
 #> ✓ ggplot2 3.2.1     ✓ purrr   0.3.3
 #> ✓ tibble  2.1.3     ✓ dplyr   0.8.4
 #> ✓ tidyr   1.0.2     ✓ stringr 1.4.0
 #> ✓ readr   1.3.1     ✓ forcats 0.4.0
-#> ── Conflicts ─────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(injurymatrix)
@@ -226,6 +228,150 @@ summarise_at(vars(count), sum)
 #> 3 Firearm        0
 ```
 
+### Using `matrix_intent_mechanism()`
+
+  - Without keyword submitted, all the 92 injury intents and mechanisms
+    combined are added to the data.  
+  - With keywords (the partial name of the mechanism or intent will
+    suffice) only the matching combination of intent and mechanisms will
+    be added to the dataset.
+
+<!-- end list -->
+
+``` r
+
+# ?matrix_mechanism for more information 
+
+# No keyword 
+
+results_5 <- icd10cm_data150 %>% 
+  matrix_intent_mechanism(inj_col = c(2:6))
+  
+results_5
+#> # A tibble: 150 x 98
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Bites_S…
+#>    <chr> <chr>       <chr>       <chr>       <chr>  <chr>             <dbl>
+#>  1 051   T82868A     N186        D6859       Y832   <NA>                  0
+#>  2 171   T43011A     G92         E860        <NA>   <NA>                  0
+#>  3 228   T391X1A     D72829      E785        Y92009 <NA>                  0
+#>  4 071   T383X2A     T471X2A     F329        <NA>   <NA>                  0
+#>  5 026   T43591A     J449        I10         Y92009 <NA>                  0
+#>  6 172   S72142A     D62         D6832       W010X… Y92018                0
+#>  7 129   T8452XA     A419        D693        Y831   <NA>                  0
+#>  8 197   T43621A     R7881       E876        <NA>   <NA>                  0
+#>  9 232   T50902A     J9601       G92         Y9259  <NA>                  0
+#> 10 027   J189        G92         J9600       Y92238 <NA>                  0
+#> # … with 140 more rows, and 91 more variables: Assault_Cut_Pierce <dbl>,
+#> #   Assault_Drowning_Submersion <dbl>, Assault_Fall <dbl>,
+#> #   Assault_Fire_Flame <dbl>, Assault_Firearm <dbl>,
+#> #   Assault_Hot_Object_Substance <dbl>, Assault_MVT_Occupant <dbl>,
+#> #   Assault_MVT_Pedestrian <dbl>, Assault_Natural_Environmental_Other <dbl>,
+#> #   Assault_Other_Land_Transport <dbl>,
+#> #   Assault_Other_Specified_Child_Adult_Abuse <dbl>,
+#> #   Assault_Other_Specified_Classifiable <dbl>,
+#> #   Assault_Other_Specified_NEC <dbl>, Assault_Other_Transport <dbl>,
+#> #   Assault_Poisoning_Drug <dbl>, Assault_Poisoning_Non_drug <dbl>,
+#> #   Assault_Struck_by_against <dbl>, Assault_Suffocation <dbl>,
+#> #   Assault_Unspecified <dbl>,
+#> #   Intentional_Self_Harm_Bites_Stings_venomous <dbl>,
+#> #   Intentional_Self_Harm_Cut_Pierce <dbl>,
+#> #   Intentional_Self_Harm_Drowning_Submersion <dbl>,
+#> #   Intentional_Self_Harm_Fall <dbl>, Intentional_Self_Harm_Fire_Flame <dbl>,
+#> #   Intentional_Self_Harm_Firearm <dbl>,
+#> #   Intentional_Self_Harm_Hot_Object_Substance <dbl>,
+#> #   Intentional_Self_Harm_MVT_Occupant <dbl>,
+#> #   Intentional_Self_Harm_MVT_Other <dbl>,
+#> #   Intentional_Self_Harm_Natural_Environmental_Other <dbl>,
+#> #   Intentional_Self_Harm_Other_Land_Transport <dbl>,
+#> #   Intentional_Self_Harm_Other_Specified_Classifiable <dbl>,
+#> #   Intentional_Self_Harm_Other_Specified_NEC <dbl>,
+#> #   Intentional_Self_Harm_Other_Transport <dbl>,
+#> #   Intentional_Self_Harm_Poisoning_Drug <dbl>,
+#> #   Intentional_Self_Harm_Poisoning_Non_drug <dbl>,
+#> #   Intentional_Self_Harm_Struck_by_against <dbl>,
+#> #   Intentional_Self_Harm_Suffocation <dbl>,
+#> #   Intentional_Self_Harm_Unspecified <dbl>,
+#> #   Legal_Intervention_War_Cut_Pierce <dbl>,
+#> #   Legal_Intervention_War_Fire_Flame <dbl>,
+#> #   Legal_Intervention_War_Firearm <dbl>,
+#> #   Legal_Intervention_War_Other_Specified_Classifiable <dbl>,
+#> #   Legal_Intervention_War_Other_Specified_NEC <dbl>,
+#> #   Legal_Intervention_War_Other_Transport <dbl>,
+#> #   Legal_Intervention_War_Poisoning_Non_drug <dbl>,
+#> #   Legal_Intervention_War_Struck_by_against <dbl>,
+#> #   Legal_Intervention_War_Suffocation <dbl>,
+#> #   Legal_Intervention_War_Unspecified <dbl>,
+#> #   Undetermined_Bites_Stings_venomous <dbl>, Undetermined_Cut_Pierce <dbl>,
+#> #   Undetermined_Drowning_Submersion <dbl>, Undetermined_Fall <dbl>,
+#> #   Undetermined_Fire_Flame <dbl>, Undetermined_Firearm <dbl>,
+#> #   Undetermined_Hot_Object_Substance <dbl>,
+#> #   Undetermined_MVT_Unspecified <dbl>,
+#> #   Undetermined_Natural_Environmental_Other <dbl>,
+#> #   Undetermined_Other_Specified_Classifiable <dbl>,
+#> #   Undetermined_Other_Specified_NEC <dbl>, Undetermined_Poisoning_Drug <dbl>,
+#> #   Undetermined_Poisoning_Non_drug <dbl>,
+#> #   Undetermined_Struck_by_against <dbl>, Undetermined_Suffocation <dbl>,
+#> #   Unintentional_Bites_Stings_nonvenomous <dbl>,
+#> #   Unintentional_Bites_Stings_venomous <dbl>, Unintentional_Cut_Pierce <dbl>,
+#> #   Unintentional_Drowning_Submersion <dbl>, Unintentional_Fall <dbl>,
+#> #   Unintentional_Fire_Flame <dbl>, Unintentional_Firearm <dbl>,
+#> #   Unintentional_Hot_Object_Substance <dbl>, Unintentional_Machinery <dbl>,
+#> #   Unintentional_Motor_Vehicle_Nontraffic <dbl>,
+#> #   Unintentional_MVT_Motorcyclist <dbl>, Unintentional_MVT_Occupant <dbl>,
+#> #   Unintentional_MVT_Other <dbl>, Unintentional_MVT_Pedal_Cyclist <dbl>,
+#> #   Unintentional_MVT_Pedestrian <dbl>,
+#> #   Unintentional_Natural_Environmental_Other <dbl>,
+#> #   Unintentional_Other_Land_Transport <dbl>,
+#> #   Unintentional_Other_Specified_Classifiable <dbl>,
+#> #   Unintentional_Other_Specified_Foreign_Body <dbl>,
+#> #   Unintentional_Other_Transport <dbl>, Unintentional_Overexertion <dbl>,
+#> #   Unintentional_Pedal_cyclist_other <dbl>,
+#> #   Unintentional_Pedestrian_other <dbl>, Unintentional_Poisoning_Drug <dbl>,
+#> #   Unintentional_Poisoning_Non_drug <dbl>,
+#> #   Unintentional_Struck_by_against <dbl>, Unintentional_Suffocation <dbl>,
+#> #   Unintentional_Unspecified <dbl>
+
+# Keyword used
+
+results_6 <- icd10cm_data150 %>% 
+  matrix_intent_mechanism(inj_col = c(2:6), "Poisoning_Drug")
+  
+results_6
+#> # A tibble: 150 x 10
+#>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Poisoni…
+#>    <chr> <chr>       <chr>       <chr>       <chr>  <chr>             <dbl>
+#>  1 051   T82868A     N186        D6859       Y832   <NA>                  0
+#>  2 171   T43011A     G92         E860        <NA>   <NA>                  0
+#>  3 228   T391X1A     D72829      E785        Y92009 <NA>                  0
+#>  4 071   T383X2A     T471X2A     F329        <NA>   <NA>                  0
+#>  5 026   T43591A     J449        I10         Y92009 <NA>                  0
+#>  6 172   S72142A     D62         D6832       W010X… Y92018                0
+#>  7 129   T8452XA     A419        D693        Y831   <NA>                  0
+#>  8 197   T43621A     R7881       E876        <NA>   <NA>                  0
+#>  9 232   T50902A     J9601       G92         Y9259  <NA>                  0
+#> 10 027   J189        G92         J9600       Y92238 <NA>                  0
+#> # … with 140 more rows, and 3 more variables:
+#> #   Intentional_Self_Harm_Poisoning_Drug <dbl>,
+#> #   Undetermined_Poisoning_Drug <dbl>, Unintentional_Poisoning_Drug <dbl>
+
+# table of selected mechanisms from result_4  
+
+results_6 %>%
+select(-diagnosis_1:-ecode2) %>%
+pivot_longer(cols = -uid,
+             names_to = "intent_mechanism",
+             values_to = "count") %>%
+group_by(intent_mechanism) %>%
+summarise_at(vars(count), sum)
+#> # A tibble: 4 x 2
+#>   intent_mechanism                     count
+#>   <chr>                                <dbl>
+#> 1 Assault_Poisoning_Drug                   0
+#> 2 Intentional_Self_Harm_Poisoning_Drug    56
+#> 3 Undetermined_Poisoning_Drug              4
+#> 4 Unintentional_Poisoning_Drug            58
+```
+
 ### Create A column of first valid external cause
 
 This example illustrates how to create a first valid external cause
@@ -241,11 +387,11 @@ Toolkit](https://resources.cste.org/ICD-10-CM/Standardized%20Validation%20Datase
 will create the first valid external cause field.
 
 ``` r
-results_5 <- icd10cm_data150 %>% 
+results_7 <- icd10cm_data150 %>% 
   mutate(ex_cause1 = icd_first_valid_regex(., colvec = c(2:6), 
                                            pattern = icd10cm__external_cause_))
 
-results_5
+results_7
 #> # A tibble: 150 x 7
 #>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2 ex_cause1
 #>    <chr> <chr>       <chr>       <chr>       <chr>   <chr>  <chr>    
@@ -262,11 +408,11 @@ results_5
 #> # … with 140 more rows
 ```
 
-Adding selected intents to *results\_5* by using the new *ex\_cause1*
+Adding selected intents to *results\_7* by using the new *ex\_cause1*
 only:
 
 ``` r
-results_5 %>% 
+results_7 %>% 
   matrix_intent(inj_col = "ex_cause1", 
                 "unintent", "undeterm")
 #> # A tibble: 150 x 9
@@ -293,6 +439,8 @@ used by the functions described above. Run the following lines of code
 to get more details on the datasets.
 
 `library(injurymatix)`  
-`?icd10cm_mech_regex` \# matrix collapsed to the mechanisms  
-`?icd10cm_intent_regex` \# matrix collapsed to the intents  
-`?injury_matrix_all` \# the full matrix
+`?icd10cm_mech_regex` \# matrix collapsed to the 31 mechanisms  
+`?icd10cm_intent_regex` \# matrix collapsed to the 5 intents
+`?icd10cm_intent_mech_regex` \# matrix of the 92 combinations of intent
+and mechanism `?injury_matrix_all` \# the full matrix of 3,602 entries
+icd-10-cm of external causes of injury

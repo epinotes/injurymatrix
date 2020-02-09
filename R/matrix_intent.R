@@ -47,7 +47,7 @@ matrix_intent <- function(data, inj_col, ...) {
   add_field_names <- function(data = data, inj_col, var_name, expr) {
     var_name <- quo_name(var_name)
     data %>%
-      mutate(!!var_name := icd_new_diag(., expr = expr, colvec = inj_col)) %>%
+      mutate(!!var_name := find_diag(., expr = expr, colvec = inj_col)) %>%
       select(!!var_name)
   }
 

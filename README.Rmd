@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 
 The R package **injurymatrix** purpose is to facilitate the use of the [ICD-10-CM injury matrix](https://www.cdc.gov/nchs/injury/injury_tools.htm) in data analysis.  
 
-The package provides two main functions: `matrix_intent()` and `matrix_mechanism()` to add respectively intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism.
-Try *`?matrix_mechanism`* and *`?matrix_intent`* for more information on those two functions. 
+The package provides three main functions: `matrix_intent()`, `matrix_mechanism()` and `matrix_intent_mechanism()` to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism.
+Try *`?matrix_intent`*, *`?matrix_mechanism`* and *`?matrix_intent_mechanism`* for more information on those functions. 
 There are more capabilities in the package [useicd10cm](https://github.com/epinotes/useicd10cm) to consider.  
 
 ## Installation
@@ -129,6 +129,43 @@ summarise_at(vars(count), sum)
 ```  
 
 
+### Using `matrix_intent_mechanism()`  
+
+* Without keyword submitted, all the 92 injury intents and mechanisms combined are added to the data.  
+* With keywords (the partial name of the mechanism or intent will suffice) only the matching combination of intent and mechanisms will be added to the dataset.    
+
+
+```{r}
+
+# ?matrix_mechanism for more information 
+
+# No keyword 
+
+results_5 <- icd10cm_data150 %>% 
+  matrix_intent_mechanism(inj_col = c(2:6))
+  
+results_5
+
+# Keyword used
+
+results_6 <- icd10cm_data150 %>% 
+  matrix_intent_mechanism(inj_col = c(2:6), "Poisoning_Drug")
+  
+results_6
+
+# table of selected mechanisms from result_4  
+
+results_6 %>%
+select(-diagnosis_1:-ecode2) %>%
+pivot_longer(cols = -uid,
+             names_to = "intent_mechanism",
+             values_to = "count") %>%
+group_by(intent_mechanism) %>%
+summarise_at(vars(count), sum)
+
+```  
+
+
 ### Create A column of first valid external cause 
 
 This example illustrates how to create a first valid external cause field.  
@@ -142,19 +179,19 @@ The function `icd_first_valid_regex()` in combination with the regular expressio
 
 
 ```{r}
-results_5 <- icd10cm_data150 %>% 
+results_7 <- icd10cm_data150 %>% 
   mutate(ex_cause1 = icd_first_valid_regex(., colvec = c(2:6), 
                                            pattern = icd10cm__external_cause_))
 
-results_5
+results_7
 
 ```
 
-Adding selected intents to *results_5* by using the new *ex_cause1* only:  
+Adding selected intents to *results_7* by using the new *ex_cause1* only:  
 
 
 ```{r}
-results_5 %>% 
+results_7 %>% 
   matrix_intent(inj_col = "ex_cause1", 
                 "unintent", "undeterm")
 ```
@@ -166,7 +203,8 @@ results_5 %>%
 Exploring the datasets below that provided the necessary information used by the functions described above. Run the following lines of code to get more details on the datasets. 
 
 `library(injurymatix)`   
-`?icd10cm_mech_regex` # matrix collapsed to the mechanisms    
-`?icd10cm_intent_regex` # matrix collapsed to the intents   
-`?injury_matrix_all` # the full matrix   
+`?icd10cm_mech_regex` # matrix collapsed to the 31 mechanisms    
+`?icd10cm_intent_regex` # matrix collapsed to the 5 intents 
+`?icd10cm_intent_mech_regex` # matrix of the 92 combinations of intent and mechanism
+`?injury_matrix_all` # the full matrix of 3,602 entries icd-10-cm of external causes of injury
 
