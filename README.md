@@ -1,8 +1,9 @@
 
 # injurymatrix
 
-The R package **injurymatrix** purpose is to facilitate the use of the
-[ICD-10-CM injury
+The R package
+**[injurymatrix](https://epinotes.github.io/injurymatrix/)** purpose is
+to facilitate the use of the [ICD-10-CM injury
 matrix](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/) in
 data analysis. The online matrices were updated in October 2020.
 
