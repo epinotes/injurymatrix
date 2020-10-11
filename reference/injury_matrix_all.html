@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="The complete icd10cm injury matrix. — injury_matrix_all" />
-<meta property="og:description" content="Dataset of 3,602 rows and 5 variables.
+<meta property="og:description" content="Dataset of 3,655 rows and 5 variables.
 formatted from the original" />
 
 
@@ -80,12 +80,6 @@ formatted from the original" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
@@ -115,11 +109,11 @@ formatted from the original" />
     </div>
 
     <div class="ref-description">
-    <p>Dataset of 3,602 rows and 5 variables.
+    <p>Dataset of 3,655 rows and 5 variables.
 formatted from the original</p>
     </div>
 
-    <pre class="usage"><span class='no'>injury_matrix_all</span></pre>
+    <pre class="usage"><span class='va'>injury_matrix_all</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
@@ -127,23 +121,24 @@ formatted from the original</p>
     <p>Data frame</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p><a href='https://www.cdc.gov/injury/wisqars/dataandstats.html'>https://www.cdc.gov/injury/wisqars/dataandstats.html</a></p>
+    <p><a href='ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/'>ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)
-<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample.html'>sample_n</a></span>(<span class='no'>injury_matrix_all</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 5</span><span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample_n.html'>sample_n</a></span><span class='op'>(</span><span class='va'>injury_matrix_all</span>, <span class='fl'>10</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 5</span><span>
 #&gt;    mechanism       icd10cm description                  intent     icd10cm_regex
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                        </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>      </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
-#&gt; </span><span style='color: #555555;'> 1</span><span> Poisoning, Drug T407X4  Poisoning by cannabis (deri… Undetermi… T407.4       
-#&gt; </span><span style='color: #555555;'> 2</span><span> Other Specifie… X818XX  Intentional self-harm by ju… Intention… X818..       
-#&gt; </span><span style='color: #555555;'> 3</span><span> MVT-Occupant    V679XX  Unspecified occupant of hea… Unintenti… V679..       
-#&gt; </span><span style='color: #555555;'> 4</span><span> Drowning/Subme… V9015X  Drowning and submersion due… Unintenti… V9015.       
-#&gt; </span><span style='color: #555555;'> 5</span><span> Bites/Stings, … T63333  Toxic effect of venom of br… Assault    T63333       
-#&gt; </span><span style='color: #555555;'> 6</span><span> Other Specifie… Y37311  Military operations involvi… Legal_Int… Y37311       
-#&gt; </span><span style='color: #555555;'> 7</span><span> Poisoning, Drug T368X4  Poisoning by other systemic… Undetermi… T368.4       
-#&gt; </span><span style='color: #555555;'> 8</span><span> MVT-Pedestrian  V0499X  Pedestrian with other conve… Unintenti… V0499.       
-#&gt; </span><span style='color: #555555;'> 9</span><span> Poisoning, Non… T535X1  Toxic effect of chlorofluor… Unintenti… T535.1       
-#&gt; </span><span style='color: #555555;'>10</span><span> Other Land Tra… V8659X  Driver of other special all… Unintenti… V8659.       </div></span></pre>
+#&gt; </span><span style='color: #555555;'> 1</span><span> Bites and Stin… T632X2  Toxic effect of venom of sc… Intention… T632.2       
+#&gt; </span><span style='color: #555555;'> 2</span><span> MVT-Occupant    V677XX  Person on outside of heavy … Unintenti… V677..       
+#&gt; </span><span style='color: #555555;'> 3</span><span> Drowning/Subme… V9015X  Drowning and submersion due… Unintenti… V9015.       
+#&gt; </span><span style='color: #555555;'> 4</span><span> Hot Object/Sub… X980XX  Assault by steam or hot vap… Assault    X980..       
+#&gt; </span><span style='color: #555555;'> 5</span><span> Other Specifie… Y36591  War operation involving oth… Legal Int… Y36591       
+#&gt; </span><span style='color: #555555;'> 6</span><span> Poisoning, Non… T595X3  Toxic effect of fluorine ga… Assault    T595.3       
+#&gt; </span><span style='color: #555555;'> 7</span><span> MVT-Pedestrian  V03938  Pedestrian on other standin… Unintenti… V03938       
+#&gt; </span><span style='color: #555555;'> 8</span><span> Poisoning, Drug T493X1  Poisoning by emollients, de… Unintenti… T493.1       
+#&gt; </span><span style='color: #555555;'> 9</span><span> Other Land Tra… V80928  Occupant of animal-drawn ve… Unintenti… V80928       
+#&gt; </span><span style='color: #555555;'>10</span><span> MVT-Pedal Cycl… V1959X  Pedal cycle passenger injur… Unintenti… V1959.       </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -159,7 +154,7 @@ formatted from the original</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
