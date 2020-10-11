@@ -69,7 +69,7 @@
 <div id="injurymatrix" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#injurymatrix" class="anchor"></a>injurymatrix</h1></div>
-<p>The R package <strong>injurymatrix</strong> purpose is to facilitate the use of the <a href="https://www.cdc.gov/nchs/injury/injury_tools.htm">ICD-10-CM injury matrix</a> in data analysis.</p>
+<p>The R package <strong>injurymatrix</strong> purpose is to facilitate the use of the <a href="ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/">ICD-10-CM injury matrix</a> in data analysis. The online matrices were updated in October 2020.</p>
 <p>The package provides three main functions: <code><a href="reference/matrix_intent.html">matrix_intent()</a></code>, <code><a href="reference/matrix_mechanism.html">matrix_mechanism()</a></code> and <code><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism()</a></code> to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism. Try <em><code><a href="reference/matrix_intent.html">?matrix_intent</a></code></em>, <em><code><a href="reference/matrix_mechanism.html">?matrix_mechanism</a></code></em> and <em><code><a href="reference/matrix_intent_mechanism.html">?matrix_intent_mechanism</a></code></em> for more information on those functions. There are more capabilities in the package <a href="https://github.com/epinotes/useicd10cm">useicd10cm</a> to consider.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -78,32 +78,34 @@
 <ul>
 <li>Install the devtools package: <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages("devtools")</a></code><br>
 </li>
-<li>Install the injurymatrix package: <code><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">devtools::install_github("epinotes/injurymatrix")</a></code><br>
+<li>Install the injurymatrix package: <code><a href="https://devtools.r-lib.org//reference/remote-reexports.html">devtools::install_github("epinotes/injurymatrix")</a></code><br>
 </li>
-<li>Load the package: <code><a href="https://rdrr.io/pkg/injurymatrix/man">library(injurymatrix)</a></code>
+<li>Load the package: <code><a href="https://github.com/epinotes/injurymatrix">library(injurymatrix)</a></code>
 </li>
 </ul>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># loading relevant packages  </span>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="co"># loading relevant packages  </span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
-<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──</span>
-<span class="co">#&gt; ✓ ggplot2 3.2.1     ✓ purrr   0.3.3</span>
-<span class="co">#&gt; ✓ tibble  2.1.3     ✓ dplyr   0.8.4</span>
-<span class="co">#&gt; ✓ tidyr   1.0.2     ✓ stringr 1.4.0</span>
-<span class="co">#&gt; ✓ readr   1.3.1     ✓ forcats 0.4.0</span>
-<span class="co">#&gt; ── Conflicts ────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
+<span class="co">#&gt; -- Attaching packages ---------------------------------------------- tidyverse 1.3.0 --</span>
+<span class="co">#&gt; v ggplot2 3.3.2          v purrr   0.3.4     </span>
+<span class="co">#&gt; v tibble  3.0.1.9000     v dplyr   1.0.0     </span>
+<span class="co">#&gt; v tidyr   1.1.0          v stringr 1.4.0     </span>
+<span class="co">#&gt; v readr   1.3.1          v forcats 0.5.0</span>
+<span class="co">#&gt; -- Conflicts ------------------------------------------------- tidyverse_conflicts() --</span>
 <span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
 <span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">injurymatrix</span>)</pre></div>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># check the content of the dataset used in the examples below.   </span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epinotes/injurymatrix">injurymatrix</a></span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># check the content of the dataset used in the examples below.   </span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">11</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">11</span><span class="op">)</span>
 
-<span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span> <span class="fu">sample_n</span>(<span class="fl">10</span>)
+<span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> <span class="fu">sample_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; </span>
@@ -120,7 +122,7 @@
 
 <span class="co"># get the indices of the columns with ICD-10_CM. </span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span>(<span class="st">"diag|ecode"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">icd10cm_data150</span>), <span class="kw">ignore.case</span> <span class="kw">=</span> <span class="no">T</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/grep.html">grep</a></span><span class="op">(</span><span class="st">"diag|ecode"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">icd10cm_data150</span><span class="op">)</span>, ignore.case <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 <span class="co">#&gt; [1] 2 3 4 5 6</span>
 
 <span class="co"># The indices will be used as arguments in the following functions.  </span></pre></div>
@@ -133,14 +135,15 @@
 </li>
 <li>With keywords (the partial name of the intent will suffice) only the matching intents will be added to the dataset.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb3"><pre class="r"><span class="co"># ?matrix_intent for more information</span>
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="co"># ?matrix_intent for more information</span>
 
 <span class="co"># No keyword is used</span>
 
-<span class="no">results_1</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>))
+<span class="va">results_1</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">results_1</span>
+<span class="va">results_1</span>
 <span class="co">#&gt; # A tibble: 150 x 11</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;</span>
@@ -149,38 +152,38 @@
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;         0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;         0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;         0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018       0</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018       0</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;         0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;         0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;         0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;         0</span>
-<span class="co">#&gt; # … with 140 more rows, and 4 more variables: Intentional_Self_Harm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War &lt;dbl&gt;, Undetermined &lt;dbl&gt;, Unintentional &lt;dbl&gt;</span>
+<span class="co">#&gt; # ... with 140 more rows, and 4 more variables: `Intentional Self-harm` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Legal Intervention-War` &lt;dbl&gt;, Undetermined &lt;dbl&gt;, Unintentional &lt;dbl&gt;</span>
 
 <span class="co"># table of the injury intent from result_1  </span>
 
-<span class="no">results_1</span> <span class="kw">%&gt;%</span>
-<span class="fu">select</span>(-<span class="no">diagnosis_1</span>:-<span class="no">ecode2</span>) <span class="kw">%&gt;%</span>
-<span class="fu">pivot_longer</span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="no">uid</span>,
-             <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"intent"</span>,
-             <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>) <span class="kw">%&gt;%</span>
-<span class="fu">group_by</span>(<span class="no">intent</span>) <span class="kw">%&gt;%</span>
-<span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="no">count</span>), <span class="no">sum</span>)
+<span class="va">results_1</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
+             names_to <span class="op">=</span> <span class="st">"intent"</span>,
+             values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5 x 2</span>
 <span class="co">#&gt;   intent                 count</span>
 <span class="co">#&gt;   &lt;chr&gt;                  &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Assault                    0</span>
-<span class="co">#&gt; 2 Intentional_Self_Harm     56</span>
-<span class="co">#&gt; 3 Legal_Intervention_War     0</span>
+<span class="co">#&gt; 2 Intentional Self-harm     56</span>
+<span class="co">#&gt; 3 Legal Intervention-War     0</span>
 <span class="co">#&gt; 4 Undetermined               4</span>
 <span class="co">#&gt; 5 Unintentional             78</span>
 
 <span class="co"># Keywords used  </span>
 
-<span class="no">results_2</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>), <span class="st">"unintent"</span>, <span class="st">"undeterm"</span>)
-
-<span class="no">results_2</span>
+<span class="va">results_2</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="st">"unintent"</span>, <span class="st">"undeterm"</span><span class="op">)</span>
+  
+<span class="va">results_2</span>
 <span class="co">#&gt; # A tibble: 150 x 8</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Undetermined</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;</span>
@@ -189,51 +192,60 @@
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;              0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;              0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;              0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018            0</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018            0</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;              0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;              0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;              0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;              0</span>
-<span class="co">#&gt; # … with 140 more rows, and 1 more variable: Unintentional &lt;dbl&gt;</span></pre></div>
+<span class="co">#&gt; # ... with 140 more rows, and 1 more variable: Unintentional &lt;dbl&gt;</span></pre></div>
 </div>
 <div id="using-matrix_mechanism" class="section level3">
 <h3 class="hasAnchor">
 <a href="#using-matrix_mechanism" class="anchor"></a>Using <code>matrix_mechanism()</code>
 </h3>
 <ul>
-<li>Without keyword submitted, all the 31 injury mechanisms are added to the data.<br>
+<li>Without keyword submitted, all the 33 injury mechanisms are added to the data.<br>
 </li>
 <li>With keywords (the partial name of the mechanism will suffice) only the matching mechanisms will be added to the dataset.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="r">
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit">
+
 <span class="co"># ?matrix_mechanism for more information </span>
 
 <span class="co"># No keyword </span>
 
-<span class="no">results_3</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>))
-
-<span class="no">results_3</span>
-<span class="co">#&gt; # A tibble: 150 x 37</span>
-<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Bites_Stings_no…</span>
+<span class="va">results_3</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; New names:</span>
+<span class="co">#&gt; * Natural_Environmental_Other -&gt; Natural_Environmental_Other...18</span>
+<span class="co">#&gt; * Natural_Environmental_Other -&gt; Natural_Environmental_Other...19</span>
+<span class="co">#&gt; New names:</span>
+<span class="co">#&gt; * Natural_Environmental_Other...18 -&gt; Natural_Environmental_Other...24</span>
+<span class="co">#&gt; * Natural_Environmental_Other...19 -&gt; Natural_Environmental_Other...25</span>
+  
+<span class="va">results_3</span>
+<span class="co">#&gt; # A tibble: 150 x 39</span>
+<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Bites_and_Sting~</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 051   T82868A     N186        D6859       Y832   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  2 171   T43011A     G92         E860        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;                  0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018                0</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018                0</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;                  0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;                  0</span>
-<span class="co">#&gt; # … with 140 more rows, and 30 more variables: Bites_Stings_venomous &lt;dbl&gt;,</span>
+<span class="co">#&gt; # ... with 140 more rows, and 32 more variables:</span>
+<span class="co">#&gt; #   Bites_and_Stings_venomous &lt;dbl&gt;, Bites_Stings_venomous &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Cut_Pierce &lt;dbl&gt;, Drowning_Submersion &lt;dbl&gt;, Fall &lt;dbl&gt;, Fire_Flame &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Firearm &lt;dbl&gt;, Hot_Object_Substance &lt;dbl&gt;, Machinery &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Motor_Vehicle_Nontraffic &lt;dbl&gt;, MVT_Motorcyclist &lt;dbl&gt;, MVT_Occupant &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   MVT_Other &lt;dbl&gt;, MVT_Pedal_Cyclist &lt;dbl&gt;, MVT_Pedestrian &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   MVT_Unspecified &lt;dbl&gt;, Natural_Environmental_Other &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Other_Land_Transport &lt;dbl&gt;, Other_Specified_Child_Adult_Abuse &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   MVT_Unspecified &lt;dbl&gt;, Natural_Environmental_Other...24 &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Natural_Environmental_Other...25 &lt;dbl&gt;, Other_Land_Transport &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Other_Specified_Child_Adult_Abuse &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Other_Specified_Classifiable &lt;dbl&gt;, Other_Specified_Foreign_Body &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Other_Specified_NEC &lt;dbl&gt;, Other_Transport &lt;dbl&gt;, Overexertion &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Pedal_cyclist_other &lt;dbl&gt;, Pedestrian_other &lt;dbl&gt;, Poisoning_Drug &lt;dbl&gt;,</span>
@@ -242,10 +254,10 @@
 
 <span class="co"># Keyword used</span>
 
-<span class="no">results_4</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>), <span class="st">"firearm"</span>, <span class="st">"fall"</span>, <span class="st">"pierce"</span>)
-
-<span class="no">results_4</span>
+<span class="va">results_4</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="st">"firearm"</span>, <span class="st">"fall"</span>, <span class="st">"pierce"</span><span class="op">)</span>
+  
+<span class="va">results_4</span>
 <span class="co">#&gt; # A tibble: 150 x 9</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Cut_Pierce  Fall</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;</span>
@@ -254,22 +266,22 @@
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;            0     0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;            0     0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;            0     0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018          0     1</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018          0     1</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;            0     0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;            0     0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;            0     0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;            0     0</span>
-<span class="co">#&gt; # … with 140 more rows, and 1 more variable: Firearm &lt;dbl&gt;</span>
+<span class="co">#&gt; # ... with 140 more rows, and 1 more variable: Firearm &lt;dbl&gt;</span>
 
 <span class="co"># table of selected mechanisms from result_4  </span>
 
-<span class="no">results_4</span> <span class="kw">%&gt;%</span>
-<span class="fu">select</span>(-<span class="no">diagnosis_1</span>:-<span class="no">ecode2</span>) <span class="kw">%&gt;%</span>
-<span class="fu">pivot_longer</span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="no">uid</span>,
-             <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"mechanism"</span>,
-             <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>) <span class="kw">%&gt;%</span>
-<span class="fu">group_by</span>(<span class="no">mechanism</span>) <span class="kw">%&gt;%</span>
-<span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="no">count</span>), <span class="no">sum</span>)
+<span class="va">results_4</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
+             names_to <span class="op">=</span> <span class="st">"mechanism"</span>,
+             values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 2</span>
 <span class="co">#&gt;   mechanism  count</span>
 <span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt;</span>
@@ -286,29 +298,30 @@
 </li>
 <li>With keywords (the partial name of the mechanism or intent will suffice) only the matching combination of intent and mechanisms will be added to the dataset.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="r">
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit">
+
 <span class="co"># ?matrix_mechanism for more information </span>
 
 <span class="co"># No keyword </span>
 
-<span class="no">results_5</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>))
-
-<span class="no">results_5</span>
+<span class="va">results_5</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span>
+  
+<span class="va">results_5</span>
 <span class="co">#&gt; # A tibble: 150 x 98</span>
-<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Bites_S…</span>
+<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Bites_S~</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 051   T82868A     N186        D6859       Y832   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  2 171   T43011A     G92         E860        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;                  0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018                0</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018                0</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;                  0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;                  0</span>
-<span class="co">#&gt; # … with 140 more rows, and 91 more variables: Assault_Cut_Pierce &lt;dbl&gt;,</span>
+<span class="co">#&gt; # ... with 140 more rows, and 91 more variables: Assault_Cut_Pierce &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Assault_Drowning_Submersion &lt;dbl&gt;, Assault_Fall &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Assault_Fire_Flame &lt;dbl&gt;, Assault_Firearm &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Assault_Hot_Object_Substance &lt;dbl&gt;, Assault_MVT_Occupant &lt;dbl&gt;,</span>
@@ -319,50 +332,48 @@
 <span class="co">#&gt; #   Assault_Other_Specified_NEC &lt;dbl&gt;, Assault_Other_Transport &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Assault_Poisoning_Drug &lt;dbl&gt;, Assault_Poisoning_Non_drug &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Assault_Struck_by_against &lt;dbl&gt;, Assault_Suffocation &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Assault_Unspecified &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Bites_Stings_venomous &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Cut_Pierce &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Drowning_Submersion &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Fall &lt;dbl&gt;, Intentional_Self_Harm_Fire_Flame &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Firearm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Hot_Object_Substance &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_MVT_Occupant &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_MVT_Other &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Natural_Environmental_Other &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Other_Land_Transport &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Other_Specified_Classifiable &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Other_Specified_NEC &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Other_Transport &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Poisoning_Drug &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Poisoning_Non_drug &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Struck_by_against &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Suffocation &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Unspecified &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Cut_Pierce &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Fire_Flame &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Firearm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Other_Specified_Classifiable &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Other_Specified_NEC &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Other_Transport &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Poisoning_Non_drug &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Struck_by_against &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Suffocation &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Legal_Intervention_War_Unspecified &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Undetermined_Bites_Stings_venomous &lt;dbl&gt;, Undetermined_Cut_Pierce &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Undetermined_Drowning_Submersion &lt;dbl&gt;, Undetermined_Fall &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Undetermined_Fire_Flame &lt;dbl&gt;, Undetermined_Firearm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Undetermined_Hot_Object_Substance &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Assault_Unspecified &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Bites_and_Stings_venomous` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Cut_Pierce` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Drowning_Submersion` &lt;dbl&gt;, `Intentional Self-harm_Fall` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Intentional Self-harm_Fire_Flame` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Firearm` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Hot_Object_Substance` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_MVT_Occupant` &lt;dbl&gt;, `Intentional Self-harm_MVT_Other` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Intentional Self-harm_Natural_Environmental_Other` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Other_Land_Transport` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Other_Specified_Classifiable` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Other_Specified_NEC` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Other_Transport` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Poisoning_Drug` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Poisoning_Non_drug` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Struck_by_against` &lt;dbl&gt;, `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Suffocation` &lt;dbl&gt;, `Intentional Self-harm_Unspecified` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Legal Intervention-War_Cut_Pierce` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Fire_Flame` &lt;dbl&gt;, `Legal Intervention-War_Firearm` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   `Legal Intervention-War_Other_Specified_Classifiable` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Other_Specified_NEC` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Other_Transport` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Poisoning_Non_drug` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Struck_by_against` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Suffocation` &lt;dbl&gt;, `Legal</span>
+<span class="co">#&gt; #   Intervention-War_Unspecified` &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Undetermined_Bites_and_Stings_venomous &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Undetermined_Cut_Pierce &lt;dbl&gt;, Undetermined_Drowning_Submersion &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Undetermined_Fall &lt;dbl&gt;, Undetermined_Fire_Flame &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Undetermined_Firearm &lt;dbl&gt;, Undetermined_Hot_Object_Substance &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_MVT_Unspecified &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_Natural_Environmental_Other &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_Other_Specified_Classifiable &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_Other_Specified_NEC &lt;dbl&gt;, Undetermined_Poisoning_Drug &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_Poisoning_Non_drug &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Undetermined_Struck_by_against &lt;dbl&gt;, Undetermined_Suffocation &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Unintentional_Bites_Stings_nonvenomous &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Unintentional_Bites_Stings_venomous &lt;dbl&gt;, Unintentional_Cut_Pierce &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Unintentional_Drowning_Submersion &lt;dbl&gt;, Unintentional_Fall &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Unintentional_Fire_Flame &lt;dbl&gt;, Unintentional_Firearm &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Unintentional_Hot_Object_Substance &lt;dbl&gt;, Unintentional_Machinery &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Bites_and_Stings_nonvenomous &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Bites_and_Stings_venomous &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Cut_Pierce &lt;dbl&gt;, Unintentional_Drowning_Submersion &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Fall &lt;dbl&gt;, Unintentional_Fire_Flame &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Firearm &lt;dbl&gt;, Unintentional_Hot_Object_Substance &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Machinery &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Unintentional_Motor_Vehicle_Nontraffic &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Unintentional_MVT_Motorcyclist &lt;dbl&gt;, Unintentional_MVT_Occupant &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Unintentional_MVT_Other &lt;dbl&gt;, Unintentional_MVT_Pedal_Cyclist &lt;dbl&gt;,</span>
@@ -380,41 +391,41 @@
 
 <span class="co"># Keyword used</span>
 
-<span class="no">results_6</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>), <span class="st">"Poisoning_Drug"</span>)
-
-<span class="no">results_6</span>
+<span class="va">results_6</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="st">"Poisoning_Drug"</span><span class="op">)</span>
+  
+<span class="va">results_6</span>
 <span class="co">#&gt; # A tibble: 150 x 10</span>
-<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Poisoni…</span>
+<span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Assault_Poisoni~</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;             &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 051   T82868A     N186        D6859       Y832   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  2 171   T43011A     G92         E860        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;                  0</span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018                0</span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018                0</span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;                  0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;                  0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;                  0</span>
-<span class="co">#&gt; # … with 140 more rows, and 3 more variables:</span>
-<span class="co">#&gt; #   Intentional_Self_Harm_Poisoning_Drug &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   Undetermined_Poisoning_Drug &lt;dbl&gt;, Unintentional_Poisoning_Drug &lt;dbl&gt;</span>
+<span class="co">#&gt; # ... with 140 more rows, and 3 more variables: `Intentional</span>
+<span class="co">#&gt; #   Self-harm_Poisoning_Drug` &lt;dbl&gt;, Undetermined_Poisoning_Drug &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Unintentional_Poisoning_Drug &lt;dbl&gt;</span>
 
 <span class="co"># table of selected mechanisms from result_4  </span>
 
-<span class="no">results_6</span> <span class="kw">%&gt;%</span>
-<span class="fu">select</span>(-<span class="no">diagnosis_1</span>:-<span class="no">ecode2</span>) <span class="kw">%&gt;%</span>
-<span class="fu">pivot_longer</span>(<span class="kw">cols</span> <span class="kw">=</span> -<span class="no">uid</span>,
-             <span class="kw">names_to</span> <span class="kw">=</span> <span class="st">"intent_mechanism"</span>,
-             <span class="kw">values_to</span> <span class="kw">=</span> <span class="st">"count"</span>) <span class="kw">%&gt;%</span>
-<span class="fu">group_by</span>(<span class="no">intent_mechanism</span>) <span class="kw">%&gt;%</span>
-<span class="fu">summarise_at</span>(<span class="fu">vars</span>(<span class="no">count</span>), <span class="no">sum</span>)
+<span class="va">results_6</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
+             names_to <span class="op">=</span> <span class="st">"intent_mechanism"</span>,
+             values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">intent_mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   intent_mechanism                     count</span>
 <span class="co">#&gt;   &lt;chr&gt;                                &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 Assault_Poisoning_Drug                   0</span>
-<span class="co">#&gt; 2 Intentional_Self_Harm_Poisoning_Drug    56</span>
+<span class="co">#&gt; 2 Intentional Self-harm_Poisoning_Drug    56</span>
 <span class="co">#&gt; 3 Undetermined_Poisoning_Drug              4</span>
 <span class="co">#&gt; 4 Unintentional_Poisoning_Drug            58</span></pre></div>
 </div>
@@ -422,13 +433,15 @@
 <h3 class="hasAnchor">
 <a href="#create-a-column-of-first-valid-external-cause" class="anchor"></a>Create A column of first valid external cause</h3>
 <p>This example illustrates how to create a first valid external cause field.</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">icd10cm__external_cause_</span> <span class="kw">&lt;-</span> <span class="st">"(^[VWX]\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="va">icd10cm__external_cause_</span> <span class="op">&lt;-</span> <span class="st">"(^[VWX]\\d....|(?!(Y0[79]))Y[0-3]....|Y07.{1,3}|Y09|(T3[679]9|T414|T427|T4[3579]9)[1-4].|(?!(T3[679]9|T414|T427|T4[3579]9))(T3[6-9]|T4[0-9]|T50)..[1-4]|T1491.{0,1}|(T1[5-9]|T5[1-9]|T6[0-5]|T7[1346])...|T75[0-3]..)(A|$)"</span></pre></div>
 <p>The function <code><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex()</a></code> in combination with the regular expression above, <code>icd10cm__external_cause_</code> (It is in the <a href="https://resources.cste.org/ICD-10-CM/Standardized%20Validation%20Datasets/Other%20Useful%20ICD-10-CM%20Regular%20Expressions.pdf">CSTE Toolkit</a>) will create the first valid external cause field.</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="no">results_7</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-  <span class="fu">mutate</span>(<span class="kw">ex_cause1</span> <span class="kw">=</span> <span class="fu"><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex</a></span>(<span class="no">.</span>, <span class="kw">colvec</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>),
-                                           <span class="kw">pattern</span> <span class="kw">=</span> <span class="no">icd10cm__external_cause_</span>))
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="va">results_7</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+  <span class="fu">mutate</span><span class="op">(</span>ex_cause1 <span class="op">=</span> <span class="fu"><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex</a></span><span class="op">(</span><span class="va">.</span>, colvec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, 
+                                           pattern <span class="op">=</span> <span class="va">icd10cm__external_cause_</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">results_7</span>
+<span class="va">results_7</span>
 <span class="co">#&gt; # A tibble: 150 x 7</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2 ex_cause1</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;    </span>
@@ -442,11 +455,12 @@
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;    &lt;NA&gt;   T43621A  </span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259   &lt;NA&gt;   T50902A  </span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238  &lt;NA&gt;   &lt;NA&gt;     </span>
-<span class="co">#&gt; # … with 140 more rows</span></pre></div>
+<span class="co">#&gt; # ... with 140 more rows</span></pre></div>
 <p>Adding selected intents to <em>results_7</em> by using the new <em>ex_cause1</em> only:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">results_7</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span>(<span class="kw">inj_col</span> <span class="kw">=</span> <span class="st">"ex_cause1"</span>,
-                <span class="st">"unintent"</span>, <span class="st">"undeterm"</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">results_7</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/matrix_intent.html">matrix_intent</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="st">"ex_cause1"</span>, 
+                <span class="st">"unintent"</span>, <span class="st">"undeterm"</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 150 x 9</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 ex_cause1</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;    </span>
@@ -455,24 +469,25 @@
 <span class="co">#&gt;  3 228   T391X1A     D72829      E785        Y92009 &lt;NA&gt;   T391X1A  </span>
 <span class="co">#&gt;  4 071   T383X2A     T471X2A     F329        &lt;NA&gt;   &lt;NA&gt;   T383X2A  </span>
 <span class="co">#&gt;  5 026   T43591A     J449        I10         Y92009 &lt;NA&gt;   T43591A  </span>
-<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X… Y92018 W010XXA  </span>
+<span class="co">#&gt;  6 172   S72142A     D62         D6832       W010X~ Y92018 W010XXA  </span>
 <span class="co">#&gt;  7 129   T8452XA     A419        D693        Y831   &lt;NA&gt;   &lt;NA&gt;     </span>
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;   T43621A  </span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;   T50902A  </span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;   &lt;NA&gt;     </span>
-<span class="co">#&gt; # … with 140 more rows, and 2 more variables: Undetermined &lt;dbl&gt;,</span>
+<span class="co">#&gt; # ... with 140 more rows, and 2 more variables: Undetermined &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   Unintentional &lt;dbl&gt;</span></pre></div>
 </div>
 <div id="filter-a-dataset-with-valid-external-cause-of-injury-icd-10-cm" class="section level3">
 <h3 class="hasAnchor">
 <a href="#filter-a-dataset-with-valid-external-cause-of-injury-icd-10-cm" class="anchor"></a>Filter A Dataset With Valid External Cause Of Injury ICD 10 CM</h3>
 <p>Using the function <code><a href="reference/matrix_valid_external.html">matrix_valid_external()</a></code> providing the columns with the icd-10-cm of interest.</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="co"># create a new binary variable "valid_external"  </span>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="co"># create a new binary variable "valid_external"  </span>
 
-<span class="no">results_8</span> <span class="kw">&lt;-</span> <span class="no">icd10cm_data150</span> <span class="kw">%&gt;%</span>
-   <span class="fu"><a href="reference/matrix_valid_external.html">matrix_valid_external</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>:<span class="fl">6</span>))
+<span class="va">results_8</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
+   <span class="fu"><a href="reference/matrix_valid_external.html">matrix_valid_external</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span>
 
-<span class="no">results_8</span>
+<span class="va">results_8</span>
 <span class="co">#&gt; # A tibble: 150 x 7</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2 valid_external</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;</span>
@@ -486,11 +501,11 @@
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;    &lt;NA&gt;                1</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259   &lt;NA&gt;                1</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238  &lt;NA&gt;                0</span>
-<span class="co">#&gt; # … with 140 more rows</span>
+<span class="co">#&gt; # ... with 140 more rows</span>
 
 <span class="co"># count the number of records with valid external cause of injury</span>
-<span class="no">results_8</span> <span class="kw">%&gt;%</span>
-  <span class="fu">count</span>(<span class="no">valid_external</span>)
+<span class="va">results_8</span> <span class="op">%&gt;%</span> 
+  <span class="fu">count</span><span class="op">(</span><span class="va">valid_external</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   valid_external     n</span>
 <span class="co">#&gt;            &lt;dbl&gt; &lt;int&gt;</span>
@@ -499,8 +514,8 @@
 
 <span class="co"># Subset the dataset to the 136 records with valid external causes of injury.</span>
 
-<span class="no">results_8</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">valid_external</span> <span class="kw">==</span> <span class="fl">1</span>)
+<span class="va">results_8</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">valid_external</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 136 x 7</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2  valid_external</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;</span>
@@ -514,14 +529,14 @@
 <span class="co">#&gt;  8 066   T43012A     J9692       J690        Y92019  W1839XA              1</span>
 <span class="co">#&gt;  9 118   S32810A     S06340A     I2699       V0319XA &lt;NA&gt;                 1</span>
 <span class="co">#&gt; 10 076   T43622A     J9600       T40992A     &lt;NA&gt;    &lt;NA&gt;                 1</span>
-<span class="co">#&gt; # … with 126 more rows</span></pre></div>
+<span class="co">#&gt; # ... with 126 more rows</span></pre></div>
 </div>
 </div>
 <div id="data-included-in-the-injurymatrix-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#data-included-in-the-injurymatrix-package" class="anchor"></a>Data included in the <code>injurymatrix</code> package</h2>
 <p>Exploring the datasets below that provided the necessary information used by the functions described above. Run the following lines of code to get more details on the datasets.</p>
-<p><code><a href="https://rdrr.io/pkg/injurymatix/man">library(injurymatix)</a></code><br><code><a href="reference/icd10cm_mech_regex.html">?icd10cm_mech_regex</a></code> # matrix collapsed to the 31 mechanisms<br><code><a href="reference/icd10cm_intent_regex.html">?icd10cm_intent_regex</a></code> # matrix collapsed to the 5 intents <code><a href="reference/icd10cm_intent_mech_regex.html">?icd10cm_intent_mech_regex</a></code> # matrix of the 92 combinations of intent and mechanism <code><a href="reference/injury_matrix_all.html">?injury_matrix_all</a></code> # the full matrix of 3,602 entries icd-10-cm of external causes of injury</p>
+<p><code>library(injurymatix)</code><br><code><a href="reference/icd10cm_mech_regex.html">?icd10cm_mech_regex</a></code> # matrix collapsed to the 31 mechanisms<br><code><a href="reference/icd10cm_intent_regex.html">?icd10cm_intent_regex</a></code> # matrix collapsed to the 5 intents <code><a href="reference/icd10cm_intent_mech_regex.html">?icd10cm_intent_mech_regex</a></code> # matrix of the 92 combinations of intent and mechanism <code><a href="reference/injury_matrix_all.html">?injury_matrix_all</a></code> # the full matrix of 3,602 entries icd-10-cm of external causes of injury</p>
 </div>
 </div>
   </div>
@@ -559,7 +574,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
