@@ -4,7 +4,9 @@
 \name{icd10cm_intent_mech_regex}
 \alias{icd10cm_intent_mech_regex}
 \title{icd10cm injury matrix by intent and mechanism combined.}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
 Grouped from injury_matrix_all.
 }

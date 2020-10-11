@@ -4,15 +4,17 @@
 \name{injury_matrix_all}
 \alias{injury_matrix_all}
 \title{The complete icd10cm injury matrix.}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
-\url{https://www.cdc.gov/injury/wisqars/dataandstats.html}
+\url{ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/}
 }
 \usage{
 injury_matrix_all
 }
 \description{
-Dataset of 3,602 rows and 5 variables.
+Dataset of 3,655 rows and 5 variables.
 formatted from the original
 }
 \examples{

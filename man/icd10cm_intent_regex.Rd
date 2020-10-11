@@ -4,7 +4,9 @@
 \name{icd10cm_intent_regex}
 \alias{icd10cm_intent_regex}
 \title{icd10cm injury matrix by intent only.}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
 Grouped from injury_matrix_all
 }

@@ -1,11 +1,11 @@
 #' The complete icd10cm injury matrix.
 #'
-#' Dataset of 3,602 rows and 5 variables.
+#' Dataset of 3,655 rows and 5 variables.
 #' formatted from the original
 #'
 #' @format Data frame
 #' @source
-#'   \url{https://www.cdc.gov/injury/wisqars/dataandstats.html}
+#'   \url{ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/}
 #'
 #' @keywords datasets
 #' @examples
@@ -30,7 +30,7 @@
 
 #' icd10cm injury matrix by mechanism only.
 #'
-#' Dataset of 31 rows and 3 variables.
+#' Dataset of 33 rows and 3 variables.
 #'
 #'
 #' @format Data frame

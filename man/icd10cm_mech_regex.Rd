@@ -4,7 +4,9 @@
 \name{icd10cm_mech_regex}
 \alias{icd10cm_mech_regex}
 \title{icd10cm injury matrix by mechanism only.}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
 Grouped from injury_matrix_all.
 }
@@ -12,7 +14,7 @@ Grouped from injury_matrix_all.
 icd10cm_mech_regex
 }
 \description{
-Dataset of 31 rows and 3 variables.
+Dataset of 33 rows and 3 variables.
 }
 \examples{
 library(dplyr)

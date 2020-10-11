@@ -4,7 +4,9 @@
 \name{icd10cm_data150}
 \alias{icd10cm_data150}
 \title{Dataset with icd-10-cm codes.}
-\format{Data frame}
+\format{
+Data frame
+}
 \source{
 created to use in examples.
 }
