@@ -69,8 +69,8 @@
 <div id="injurymatrix" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#injurymatrix" class="anchor"></a>injurymatrix</h1></div>
-<p>The R package <strong><a href="https://epinotes.github.io/injurymatrix/">injurymatrix</a></strong> purpose is to facilitate the use of the <strong>ICD-10-CM injury matrix</strong>in data analysis. The online matrices were updated in October 2020( <a href="ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/" class="uri">ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/</a>).</p>
-<p>The package provides three main functions: <code><a href="reference/matrix_intent.html">matrix_intent()</a></code>, <code><a href="reference/matrix_mechanism.html">matrix_mechanism()</a></code> and <code><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism()</a></code> to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism. Try <em><code><a href="reference/matrix_intent.html">?matrix_intent</a></code></em>, <em><code><a href="reference/matrix_mechanism.html">?matrix_mechanism</a></code></em> and <em><code><a href="reference/matrix_intent_mechanism.html">?matrix_intent_mechanism</a></code></em> for more information on those functions. There are more capabilities in the package <a href="https://github.com/epinotes/useicd10cm">useicd10cm</a> to consider.</p>
+<p>The R package <strong><a href="https://epinotes.github.io/injurymatrix/">injurymatrix</a></strong> purpose is to facilitate the use of the <strong>ICD-10-CM injury matrix</strong>in data analysis. The online matrices were updated in October 2020( <a href="ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/" class="uri">ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/</a>). Find more guidance in the use of ICD-10-CM for the analysis of injury hospitalization data in this publication: <a href="https://www.cdc.gov/nchs/data/nhsr/nhsr125-508.pdf">Surveillance Case Definition for Injury Hospitalizations</a></p>
+<p>This <strong><code>injurymatrix</code></strong> R package provides three main functions: <code><a href="reference/matrix_intent.html">matrix_intent()</a></code>, <code><a href="reference/matrix_mechanism.html">matrix_mechanism()</a></code> and <code><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism()</a></code> to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism. Try <em><code><a href="reference/matrix_intent.html">?matrix_intent</a></code></em>, <em><code><a href="reference/matrix_mechanism.html">?matrix_mechanism</a></code></em> and <em><code><a href="reference/matrix_intent_mechanism.html">?matrix_intent_mechanism</a></code></em> for more information on those functions. There are more capabilities in the package <a href="https://github.com/epinotes/useicd10cm">useicd10cm</a> to consider.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -91,12 +91,12 @@
 <span class="co"># loading relevant packages  </span>
 
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
-<span class="co">#&gt; -- Attaching packages ---------------------------------------------- tidyverse 1.3.0 --</span>
+<span class="co">#&gt; -- Attaching packages ----------------------------------------------------------- tidyverse 1.3.0 --</span>
 <span class="co">#&gt; v ggplot2 3.3.2          v purrr   0.3.4     </span>
 <span class="co">#&gt; v tibble  3.0.1.9000     v dplyr   1.0.0     </span>
 <span class="co">#&gt; v tidyr   1.1.0          v stringr 1.4.0     </span>
 <span class="co">#&gt; v readr   1.3.1          v forcats 0.5.0</span>
-<span class="co">#&gt; -- Conflicts ------------------------------------------------- tidyverse_conflicts() --</span>
+<span class="co">#&gt; -- Conflicts -------------------------------------------------------------- tidyverse_conflicts() --</span>
 <span class="co">#&gt; x dplyr::filter() masks stats::filter()</span>
 <span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epinotes/injurymatrix">injurymatrix</a></span><span class="op">)</span></pre></div>
