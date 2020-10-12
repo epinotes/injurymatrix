@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # injurymatrix
 
-The R package **[injurymatrix](https://epinotes.github.io/injurymatrix/)** purpose is to facilitate the use of the [ICD-10-CM injury matrix](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/) in data analysis. The online matrices were updated in October 2020.
+The R package **[injurymatrix](https://epinotes.github.io/injurymatrix/)** purpose is to facilitate the use of the **ICD-10-CM injury matrix**in data analysis. The online matrices were updated in October 2020( [ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/)).
 
 The package provides three main functions: `matrix_intent()`, `matrix_mechanism()` and `matrix_intent_mechanism()` to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism.
 Try *`?matrix_intent`*, *`?matrix_mechanism`* and *`?matrix_intent_mechanism`* for more information on those functions. 
@@ -112,7 +112,7 @@ results_3
 # Keyword used
 
 results_4 <- icd10cm_data150 %>% 
-  matrix_mechanism(inj_col = c(2:6), "firearm", "fall", "pierce")
+  matrix_mechanism(inj_col = c(2:6), "drug", "fall", "pierce")
   
 results_4
 
@@ -227,8 +227,8 @@ results_8 %>%
 Exploring the datasets below that provided the necessary information used by the functions described above. Run the following lines of code to get more details on the datasets. 
 
 `library(injurymatix)`   
-`?icd10cm_mech_regex` # matrix collapsed to the 31 mechanisms    
+`?icd10cm_mech_regex` # matrix collapsed to the 33 mechanisms    
 `?icd10cm_intent_regex` # matrix collapsed to the 5 intents 
 `?icd10cm_intent_mech_regex` # matrix of the 92 combinations of intent and mechanism
-`?injury_matrix_all` # the full matrix of 3,602 entries icd-10-cm of external causes of injury
+`?injury_matrix_all` # the full matrix of 3,655 entries ICD-10-CM of external causes of injury
 

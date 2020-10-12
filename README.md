@@ -3,9 +3,9 @@
 
 The R package
 **[injurymatrix](https://epinotes.github.io/injurymatrix/)** purpose is
-to facilitate the use of the [ICD-10-CM injury
-matrix](ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/) in
-data analysis. The online matrices were updated in October 2020.
+to facilitate the use of the **ICD-10-CM injury matrix**in data
+analysis. The online matrices were updated in October 2020(
+<ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/>).
 
 The package provides three main functions: `matrix_intent()`,
 `matrix_mechanism()` and `matrix_intent_mechanism()` to add respectively
@@ -202,10 +202,10 @@ results_3
 # Keyword used
 
 results_4 <- icd10cm_data150 %>% 
-  matrix_mechanism(inj_col = c(2:6), "firearm", "fall", "pierce")
+  matrix_mechanism(inj_col = c(2:6), "drug", "fall", "pierce")
   
 results_4
-#> # A tibble: 150 x 9
+#> # A tibble: 150 x 10
 #>    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Cut_Pierce  Fall
 #>    <chr> <chr>       <chr>       <chr>       <chr>  <chr>       <dbl> <dbl>
 #>  1 051   T82868A     N186        D6859       Y832   <NA>            0     0
@@ -218,7 +218,8 @@ results_4
 #>  8 197   T43621A     R7881       E876        <NA>   <NA>            0     0
 #>  9 232   T50902A     J9601       G92         Y9259  <NA>            0     0
 #> 10 027   J189        G92         J9600       Y92238 <NA>            0     0
-#> # ... with 140 more rows, and 1 more variable: Firearm <dbl>
+#> # ... with 140 more rows, and 2 more variables: Poisoning_Drug <dbl>,
+#> #   Poisoning_Non_drug <dbl>
 
 # table of selected mechanisms from result_4  
 
@@ -229,12 +230,13 @@ pivot_longer(cols = -uid,
              values_to = "count") %>%
 group_by(mechanism) %>%
 summarise_at(vars(count), sum)
-#> # A tibble: 3 x 2
-#>   mechanism  count
-#>   <chr>      <dbl>
-#> 1 Cut_Pierce     2
-#> 2 Fall          12
-#> 3 Firearm        0
+#> # A tibble: 4 x 2
+#>   mechanism          count
+#>   <chr>              <dbl>
+#> 1 Cut_Pierce             2
+#> 2 Fall                  12
+#> 3 Poisoning_Drug       118
+#> 4 Poisoning_Non_drug     0
 ```
 
 ### Using `matrix_intent_mechanism()`
@@ -502,8 +504,8 @@ used by the functions described above. Run the following lines of code
 to get more details on the datasets.
 
 `library(injurymatix)`  
-`?icd10cm_mech_regex` \# matrix collapsed to the 31 mechanisms  
+`?icd10cm_mech_regex` \# matrix collapsed to the 33 mechanisms  
 `?icd10cm_intent_regex` \# matrix collapsed to the 5 intents
 `?icd10cm_intent_mech_regex` \# matrix of the 92 combinations of intent
-and mechanism `?injury_matrix_all` \# the full matrix of 3,602 entries
-icd-10-cm of external causes of injury
+and mechanism `?injury_matrix_all` \# the full matrix of 3,655 entries
+ICD-10-CM of external causes of injury

@@ -69,7 +69,7 @@
 <div id="injurymatrix" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#injurymatrix" class="anchor"></a>injurymatrix</h1></div>
-<p>The R package <strong><a href="https://epinotes.github.io/injurymatrix/">injurymatrix</a></strong> purpose is to facilitate the use of the <a href="ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/">ICD-10-CM injury matrix</a> in data analysis. The online matrices were updated in October 2020.</p>
+<p>The R package <strong><a href="https://epinotes.github.io/injurymatrix/">injurymatrix</a></strong> purpose is to facilitate the use of the <strong>ICD-10-CM injury matrix</strong>in data analysis. The online matrices were updated in October 2020( <a href="ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/" class="uri">ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/</a>).</p>
 <p>The package provides three main functions: <code><a href="reference/matrix_intent.html">matrix_intent()</a></code>, <code><a href="reference/matrix_mechanism.html">matrix_mechanism()</a></code> and <code><a href="reference/matrix_intent_mechanism.html">matrix_intent_mechanism()</a></code> to add respectively intent only, mechanism only, and combination of intent and mechanism of injury to the inputed data. The analyst has the option to use keywords to limit the query of intent or mechanism. Try <em><code><a href="reference/matrix_intent.html">?matrix_intent</a></code></em>, <em><code><a href="reference/matrix_mechanism.html">?matrix_mechanism</a></code></em> and <em><code><a href="reference/matrix_intent_mechanism.html">?matrix_intent_mechanism</a></code></em> for more information on those functions. There are more capabilities in the package <a href="https://github.com/epinotes/useicd10cm">useicd10cm</a> to consider.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -105,7 +105,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">11</span><span class="op">)</span>
 
-<span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
+<span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> <span class="fu">sample_n</span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 6</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; </span>
@@ -163,12 +163,12 @@
 <span class="co"># table of the injury intent from result_1  </span>
 
 <span class="va">results_1</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
 <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
              names_to <span class="op">=</span> <span class="st">"intent"</span>,
              values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">intent</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5 x 2</span>
 <span class="co">#&gt;   intent                 count</span>
 <span class="co">#&gt;   &lt;chr&gt;                  &lt;dbl&gt;</span>
@@ -255,10 +255,10 @@
 <span class="co"># Keyword used</span>
 
 <span class="va">results_4</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="st">"firearm"</span>, <span class="st">"fall"</span>, <span class="st">"pierce"</span><span class="op">)</span>
+  <span class="fu"><a href="reference/matrix_mechanism.html">matrix_mechanism</a></span><span class="op">(</span>inj_col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, <span class="st">"drug"</span>, <span class="st">"fall"</span>, <span class="st">"pierce"</span><span class="op">)</span>
   
 <span class="va">results_4</span>
-<span class="co">#&gt; # A tibble: 150 x 9</span>
+<span class="co">#&gt; # A tibble: 150 x 10</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1 ecode2 Cut_Pierce  Fall</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 051   T82868A     N186        D6859       Y832   &lt;NA&gt;            0     0</span>
@@ -271,23 +271,25 @@
 <span class="co">#&gt;  8 197   T43621A     R7881       E876        &lt;NA&gt;   &lt;NA&gt;            0     0</span>
 <span class="co">#&gt;  9 232   T50902A     J9601       G92         Y9259  &lt;NA&gt;            0     0</span>
 <span class="co">#&gt; 10 027   J189        G92         J9600       Y92238 &lt;NA&gt;            0     0</span>
-<span class="co">#&gt; # ... with 140 more rows, and 1 more variable: Firearm &lt;dbl&gt;</span>
+<span class="co">#&gt; # ... with 140 more rows, and 2 more variables: Poisoning_Drug &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   Poisoning_Non_drug &lt;dbl&gt;</span>
 
 <span class="co"># table of selected mechanisms from result_4  </span>
 
 <span class="va">results_4</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
 <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
              names_to <span class="op">=</span> <span class="st">"mechanism"</span>,
              values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 3 x 2</span>
-<span class="co">#&gt;   mechanism  count</span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Cut_Pierce     2</span>
-<span class="co">#&gt; 2 Fall          12</span>
-<span class="co">#&gt; 3 Firearm        0</span></pre></div>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 4 x 2</span>
+<span class="co">#&gt;   mechanism          count</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Cut_Pierce             2</span>
+<span class="co">#&gt; 2 Fall                  12</span>
+<span class="co">#&gt; 3 Poisoning_Drug       118</span>
+<span class="co">#&gt; 4 Poisoning_Non_drug     0</span></pre></div>
 </div>
 <div id="using-matrix_intent_mechanism" class="section level3">
 <h3 class="hasAnchor">
@@ -415,12 +417,12 @@
 <span class="co"># table of selected mechanisms from result_4  </span>
 
 <span class="va">results_6</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">diagnosis_1</span><span class="op">:</span><span class="op">-</span><span class="va">ecode2</span><span class="op">)</span> <span class="op">%&gt;%</span>
 <span class="fu">pivot_longer</span><span class="op">(</span>cols <span class="op">=</span> <span class="op">-</span><span class="va">uid</span>,
              names_to <span class="op">=</span> <span class="st">"intent_mechanism"</span>,
              values_to <span class="op">=</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">intent_mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarise_at</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
+<span class="fu">group_by</span><span class="op">(</span><span class="va">intent_mechanism</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="fu">summarise_at</span><span class="op">(</span><span class="fu">vars</span><span class="op">(</span><span class="va">count</span><span class="op">)</span>, <span class="va">sum</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 4 x 2</span>
 <span class="co">#&gt;   intent_mechanism                     count</span>
 <span class="co">#&gt;   &lt;chr&gt;                                &lt;dbl&gt;</span>
@@ -438,7 +440,7 @@
 <p>The function <code><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex()</a></code> in combination with the regular expression above, <code>icd10cm__external_cause_</code> (It is in the <a href="https://resources.cste.org/ICD-10-CM/Standardized%20Validation%20Datasets/Other%20Useful%20ICD-10-CM%20Regular%20Expressions.pdf">CSTE Toolkit</a>) will create the first valid external cause field.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="va">results_7</span> <span class="op">&lt;-</span> <span class="va">icd10cm_data150</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>ex_cause1 <span class="op">=</span> <span class="fu"><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex</a></span><span class="op">(</span><span class="va">.</span>, colvec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, 
+  <span class="fu">mutate</span><span class="op">(</span>ex_cause1 <span class="op">=</span> <span class="fu"><a href="reference/icd_first_valid_regex.html">icd_first_valid_regex</a></span><span class="op">(</span><span class="va">.</span>, colvec <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">6</span><span class="op">)</span>, 
                                            pattern <span class="op">=</span> <span class="va">icd10cm__external_cause_</span><span class="op">)</span><span class="op">)</span>
 
 <span class="va">results_7</span>
@@ -505,7 +507,7 @@
 
 <span class="co"># count the number of records with valid external cause of injury</span>
 <span class="va">results_8</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">valid_external</span><span class="op">)</span>
+  <span class="fu">count</span><span class="op">(</span><span class="va">valid_external</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
 <span class="co">#&gt;   valid_external     n</span>
 <span class="co">#&gt;            &lt;dbl&gt; &lt;int&gt;</span>
@@ -515,7 +517,7 @@
 <span class="co"># Subset the dataset to the 136 records with valid external causes of injury.</span>
 
 <span class="va">results_8</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">valid_external</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">valid_external</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 136 x 7</span>
 <span class="co">#&gt;    uid   diagnosis_1 diagnosis_2 diagnosis_3 ecode1  ecode2  valid_external</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;            &lt;dbl&gt;</span>
@@ -536,7 +538,7 @@
 <h2 class="hasAnchor">
 <a href="#data-included-in-the-injurymatrix-package" class="anchor"></a>Data included in the <code>injurymatrix</code> package</h2>
 <p>Exploring the datasets below that provided the necessary information used by the functions described above. Run the following lines of code to get more details on the datasets.</p>
-<p><code>library(injurymatix)</code><br><code><a href="reference/icd10cm_mech_regex.html">?icd10cm_mech_regex</a></code> # matrix collapsed to the 31 mechanisms<br><code><a href="reference/icd10cm_intent_regex.html">?icd10cm_intent_regex</a></code> # matrix collapsed to the 5 intents <code><a href="reference/icd10cm_intent_mech_regex.html">?icd10cm_intent_mech_regex</a></code> # matrix of the 92 combinations of intent and mechanism <code><a href="reference/injury_matrix_all.html">?injury_matrix_all</a></code> # the full matrix of 3,602 entries icd-10-cm of external causes of injury</p>
+<p><code>library(injurymatix)</code><br><code><a href="reference/icd10cm_mech_regex.html">?icd10cm_mech_regex</a></code> # matrix collapsed to the 33 mechanisms<br><code><a href="reference/icd10cm_intent_regex.html">?icd10cm_intent_regex</a></code> # matrix collapsed to the 5 intents <code><a href="reference/icd10cm_intent_mech_regex.html">?icd10cm_intent_mech_regex</a></code> # matrix of the 92 combinations of intent and mechanism <code><a href="reference/injury_matrix_all.html">?injury_matrix_all</a></code> # the full matrix of 3,655 entries ICD-10-CM of external causes of injury</p>
 </div>
 </div>
   </div>
