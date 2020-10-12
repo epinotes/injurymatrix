@@ -5,17 +5,21 @@ The R package
 **[injurymatrix](https://epinotes.github.io/injurymatrix/)** purpose is
 to facilitate the use of the **ICD-10-CM injury matrix**in data
 analysis. The online matrices were updated in October 2020(
-<ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/>).
+<ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/injury/tools/>). Find more
+guidance in the use of ICD-10-CM for the analysis of injury
+hospitalization data in this publication: [Surveillance Case Definition
+for Injury
+Hospitalizations](https://www.cdc.gov/nchs/data/nhsr/nhsr125-508.pdf)
 
-The package provides three main functions: `matrix_intent()`,
-`matrix_mechanism()` and `matrix_intent_mechanism()` to add respectively
-intent only, mechanism only, and combination of intent and mechanism of
-injury to the inputed data. The analyst has the option to use keywords
-to limit the query of intent or mechanism. Try *`?matrix_intent`*,
-*`?matrix_mechanism`* and *`?matrix_intent_mechanism`* for more
-information on those functions. There are more capabilities in the
-package [useicd10cm](https://github.com/epinotes/useicd10cm) to
-consider.
+This **`injurymatrix`** R package provides three main functions:
+`matrix_intent()`, `matrix_mechanism()` and `matrix_intent_mechanism()`
+to add respectively intent only, mechanism only, and combination of
+intent and mechanism of injury to the inputed data. The analyst has the
+option to use keywords to limit the query of intent or mechanism. Try
+*`?matrix_intent`*, *`?matrix_mechanism`* and
+*`?matrix_intent_mechanism`* for more information on those functions.
+There are more capabilities in the package
+[useicd10cm](https://github.com/epinotes/useicd10cm) to consider.
 
 ## Installation
 
@@ -33,12 +37,12 @@ environment:
 # loading relevant packages  
 
 library(tidyverse)
-#> -- Attaching packages ---------------------------------------------- tidyverse 1.3.0 --
+#> -- Attaching packages ----------------------------------------------------------- tidyverse 1.3.0 --
 #> v ggplot2 3.3.2          v purrr   0.3.4     
 #> v tibble  3.0.1.9000     v dplyr   1.0.0     
 #> v tidyr   1.1.0          v stringr 1.4.0     
 #> v readr   1.3.1          v forcats 0.5.0
-#> -- Conflicts ------------------------------------------------- tidyverse_conflicts() --
+#> -- Conflicts -------------------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter() masks stats::filter()
 #> x dplyr::lag()    masks stats::lag()
 library(injurymatrix)
