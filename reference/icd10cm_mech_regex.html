@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="icd10cm injury matrix by mechanism only. — icd10cm_mech_regex" />
-<meta property="og:description" content="Dataset of 33 rows and 3 variables." />
+<meta property="og:description" content="Dataset of 32 rows and 3 variables." />
 
 
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -91,7 +91,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/epinotes/injurymatrix/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +114,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Dataset of 33 rows and 3 variables.</p>
+    <p>Dataset of 32 rows and 3 variables.</p>
     </div>
 
     <pre class="usage"><span class='va'>icd10cm_mech_regex</span></pre>
@@ -130,19 +130,19 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='fu'><a href='https://dplyr.tidyverse.org/reference/sample_n.html'>sample_n</a></span><span class='op'>(</span><span class='va'>icd10cm_mech_regex</span>, <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 3</span><span>
-#&gt;    mechanism          icd10cm_regex                        intent_mechanism     
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                                </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                
-#&gt; </span><span style='color: #555555;'> 1</span><span> Other Specified, … ^X838..|Y0889.|Y33...|Y35891|Y35892… Other_Specified_NEC  
-#&gt; </span><span style='color: #555555;'> 2</span><span> MVT-Pedal Cyclist  V123..|V124..|V125..|V129..|V133..|… MVT_Pedal_Cyclist    
-#&gt; </span><span style='color: #555555;'> 3</span><span> MVT-Occupant       V304..|V305..|V306..|V307..|V309..|… MVT_Occupant         
-#&gt; </span><span style='color: #555555;'> 4</span><span> Bites and Stings,… T63001|T63011|T63021|T63031|T63041|… Bites_and_Stings_ven…
-#&gt; </span><span style='color: #555555;'> 5</span><span> Other Specified, … T1500.|T1501.|T1502.|T1510.|T1511.|… Other_Specified_Fore…
-#&gt; </span><span style='color: #555555;'> 6</span><span> Motor Vehicle-Non… V200..|V201..|V202..|V210..|V211..|… Motor_Vehicle_Nontra…
-#&gt; </span><span style='color: #555555;'> 7</span><span> Pedestrian, other  V0100.|V0101.|V0102.|V01031|V01038|… Pedestrian_other     
-#&gt; </span><span style='color: #555555;'> 8</span><span> Drowning/Submersi… W16011|W16021|W16031|W16111|W16121|… Drowning_Submersion  
-#&gt; </span><span style='color: #555555;'> 9</span><span> Other Specified, … T7401.|T7402.|T7411.|T7412.|T7421.|… Other_Specified_Chil…
-#&gt; </span><span style='color: #555555;'>10</span><span> MVT-Motorcyclist   V203..|V204..|V205..|V209..|V213..|… MVT_Motorcyclist     </div></span></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 3</span>
+#&gt;    mechanism         icd10cm_regex                          intent_mechanism    
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                  <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>               
+#&gt; <span style='color: #BCBCBC;'> 1</span> Suffocation       T17200|T17210|T17220|T17290|T17300|T1… Suffocation         
+#&gt; <span style='color: #BCBCBC;'> 2</span> Other_Transport   V9100.|V9101.|V9102.|V9103.|V9104.|V9… Other_Transport     
+#&gt; <span style='color: #BCBCBC;'> 3</span> MVT_Pedal_Cyclist V123..|V124..|V125..|V129..|V133..|V1… MVT_Pedal_Cyclist   
+#&gt; <span style='color: #BCBCBC;'> 4</span> MVT_Occupant      V304..|V305..|V306..|V307..|V309..|V3… MVT_Occupant        
+#&gt; <span style='color: #BCBCBC;'> 5</span> Bites_and_Stings… T63001|T63011|T63021|T63031|T63041|T6… Bites_and_Stings_ve…
+#&gt; <span style='color: #BCBCBC;'> 6</span> Other_Specified_… ^X838..|Y0889.|Y33...|Y35891|Y35892|Y… Other_Specified_NEC 
+#&gt; <span style='color: #BCBCBC;'> 7</span> Motor_Vehicle_No… V200..|V201..|V202..|V210..|V211..|V2… Motor_Vehicle_Nontr…
+#&gt; <span style='color: #BCBCBC;'> 8</span> Pedal_cyclist_ot… V100..|V101..|V102..|V103..|V104..|V1… Pedal_cyclist_other 
+#&gt; <span style='color: #BCBCBC;'> 9</span> Drowning_Submers… W16011|W16021|W16031|W16111|W16121|W1… Drowning_Submersion 
+#&gt; <span style='color: #BCBCBC;'>10</span> Other_Specified_… T754..|V00118|V00128|V00138|V00148|V0… Other_Specified_Cla…</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
