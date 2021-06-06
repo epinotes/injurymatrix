@@ -1,7 +1,7 @@
 icd10cm_intent_regex <- readr::read_rds("injury_matrix_all.rds") %>%
+  mutate(intent = icd_clean_mech_names(intent)) %>%
   group_by(intent) %>%
-  summarise_at(vars(icd10cm_regex), icd_make_regex) %>%
-  ungroup
+  summarise(across(icd10cm_regex, icd_make_regex), .groups = "drop")
 
 
 icd10cm_intent_regex <- icd10cm_intent_regex %>%

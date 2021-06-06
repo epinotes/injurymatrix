@@ -30,7 +30,7 @@
 
 #' icd10cm injury matrix by mechanism only.
 #'
-#' Dataset of 33 rows and 3 variables.
+#' Dataset of 32 rows and 3 variables.
 #'
 #'
 #' @format Data frame

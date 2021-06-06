@@ -8,3 +8,4 @@ injurymatrix*.tgz
 docs/
 misc.R
 docs
+*.rds
