@@ -138,3 +138,110 @@ data %>%
                                        expr = icd10cm__external_cause_,
                                        colvec = diag_ecode_col))
 }
+
+# first_match ---------------------------------------------------------
+
+#' a row operation that will form a vector of the first match of a pattern.
+#'
+#'
+#' @param data input data
+#' @param new_name proposed name for the new variable
+#' @param colvec selected columns to match
+#' @param pattern the pattern to match
+
+#' @return return the vector of the matched characters with NA for a no match
+#'
+#' @export
+#' @importFrom purrr detect
+#'
+#' @examples
+#'
+#' dat <- data.frame(x1 = letters[1:3], x2 = c("d", "a", "e"))
+#' library(dplyr)
+#' library(purrr)
+#' dat %>% first_match(new_name = "x3", colvec = c(1:2), pattern = "a")
+#'
+first_match <- function(data, new_name, colvec, pattern) {
+
+  requireNamespace("dplyr", quietly = T)
+  requireNamespace("purrr", quietly = T)
+
+  # colvec <- enquo(colvec)
+  f0 <- function(x) grepl(pattern = pattern, x, ignore.case = T, perl = T)
+  f1 <- function(x) detect(x, f0, .default = NA_character_)
+  data %>%
+    rowwise() %>%
+    mutate({{new_name}} := f1(c_across({{colvec}})))
+}
+
+
+# first_match_index ---------------------------------------------------
+
+#' Row operation that creates a vector of indices of the first match of a pattern
+#'
+#' @param data input data
+#'
+#' @param colvec selected columns to match
+#' @param pattern the pattern to match
+#' @param new_name proposed name for the new variable
+#' @return return the vector of the indices of the matches with 0 for no match
+#' @export
+#' @importFrom purrr detect_index
+#'
+#' @examples
+#'
+#' dat <- data.frame(x1 = letters[1:3], x2 = c("d", "a", "e"))
+#' library(dplyr)
+#' library(purrr)
+#' dat %>% first_match_index(new_name = "x3", colvec = c(1:2), pattern = "a")
+#'
+first_match_index <- function(data, new_name, colvec, pattern) {
+
+  requireNamespace("dplyr", quietly = T)
+  requireNamespace("purrr", quietly = T)
+
+  f0 <- function(x) grepl(pattern = pattern, x, ignore.case = T, perl = T)
+  f1 <- function(x) detect_index(x, f0)
+  data %>%
+    rowwise() %>%
+    mutate({{new_name}} := f1(c_across({{colvec}})))
+}
+
+
+
+# create_indicator ----------------------------------------------------
+
+#' Create a new indicator based on pattern in the argument expr
+#'
+#' @param data input data
+#' @param new_name proposed name for the indicator
+#' @param expr regular expression describing the pattern of interest
+#' @param colvec indices or names of variables (where are the pattern) without quotes
+#' @param ignore.case logical
+#' @param perl logical
+#'
+#' @return new indicator matching the pattern described in the regular expression
+#' @export
+#' @importFrom dplyr if_any
+#'
+#' @examples
+#'
+#' library(dplyr)
+#' library(injurymatrix)
+#' icd10cm_data150 %>%
+#'   create_indicator(new_name = "hero", expr = "T401.[1-4]", colvec = c(2:6))) %>%
+#'   count(hero)
+#'
+create_indicator <- function(data, new_name, expr,
+                                 colvec, ignore.case = T, perl = T) {
+  requireNamespace("dplyr", quietly = T)
+
+  data %>%
+    mutate({{new_name}} := case_when(
+      if_any({{colvec}},
+             function(x) grepl(expr, x, ignore.case = ignore.case, perl = perl)) ~ 1,
+      TRUE ~ 0))
+}
+
+
+

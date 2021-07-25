@@ -27,6 +27,9 @@ dat <- data.frame(
   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 )
 
-dat \%>\% matrix_intent_mechanism(inj_col = c(1, 2), "untintentional", "assault")
+}
+\seealso{
+\code{\link{matched_intent_mechanism}} for a more efficient approach
 
+dat %>% matrix_intent_mechanism(inj_col = c(1, 2), "untintentional", "assault")
 }

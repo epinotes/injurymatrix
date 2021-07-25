@@ -27,6 +27,9 @@ dat <- data.frame(
   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 )
 
-dat \%>\% matrix_mechanism(inj_col = c(1, 2), "firearm", "fall")
+}
+\seealso{
+\code{\link{matched_mechanism}} for a more efficient approach
 
+dat %>% matrix_mechanism(inj_col = c(1, 2), "firearm", "fall")
 }
