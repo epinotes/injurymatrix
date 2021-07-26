@@ -30,7 +30,7 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = 1:nrow(.))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -41,7 +41,7 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
     filter(!is.na(intent_mechanism)) %>%
     select(-c(diag, icd10cm, icd10cm_regex)) %>%
     distinct() %>%
-    mutate(case = 1)
+    dplyr::mutate(case = 1)
 
   sel_ <- unique(dat3$intent_mechanism)
 
@@ -51,7 +51,7 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
 
   dat2 %>%
     left_join(dat4, by = "u.id.") %>%
-    mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
+    dplyr::mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
     select(-u.id.)
 
 }
@@ -89,7 +89,7 @@ matrix_matched_intent <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = 1:nrow(.))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -100,7 +100,7 @@ matrix_matched_intent <- function(data, inj_col) {
     filter(!is.na(intent_mechanism)) %>%
     select(-c(diag, icd10cm, icd10cm_regex)) %>%
     distinct() %>%
-    mutate(case = 1)
+    dplyr::mutate(case = 1)
 
   sel_ <- unique(dat3$intent_mechanism)
 
@@ -110,7 +110,7 @@ matrix_matched_intent <- function(data, inj_col) {
 
   dat2 %>%
     left_join(dat4, by = "u.id.") %>%
-    mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
+    dplyr::mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
     select(-u.id.)
 
 }
@@ -147,7 +147,7 @@ matrix_matched_mechanism <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = 1:nrow(.))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -158,7 +158,7 @@ matrix_matched_mechanism <- function(data, inj_col) {
     filter(!is.na(intent_mechanism)) %>%
     select(-c(diag, icd10cm, icd10cm_regex)) %>%
     distinct() %>%
-    mutate(case = 1)
+    dplyr::mutate(case = 1)
 
   sel_ <- unique(dat3$intent_mechanism)
 
@@ -168,7 +168,7 @@ matrix_matched_mechanism <- function(data, inj_col) {
 
   dat2 %>%
     left_join(dat4, by = "u.id.") %>%
-    mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
+    dplyr::mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
     select(-u.id.)
 }
 
