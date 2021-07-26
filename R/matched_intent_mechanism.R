@@ -1,4 +1,4 @@
-# matched_intent_mechanism ---------------------------------------------------------
+# matrix_matched_intent_mechanism ---------------------------------------------------------
 
 #' Add matched intent and mechanism combined fields for injury ICD-10-CM.
 #'
@@ -20,9 +20,9 @@
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' dat %>% matched_intent_mechanism(inj_col = c(1, 2))
+#' dat %>% matrix_matched_intent_mechanism(inj_col = c(1, 2))
 #'
-matched_intent_mechanism <- function(data, inj_col) {
+matrix_matched_intent_mechanism <- function(data, inj_col) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("tidyr", quietly = T)
@@ -57,7 +57,7 @@ matched_intent_mechanism <- function(data, inj_col) {
 }
 
 
-# matched_intent ---------------------------------------------------------
+# matrix_matched_intent ---------------------------------------------------------
 
 #' Add matched intent fields for injury ICD-10-CM.
 #'
@@ -79,9 +79,9 @@ matched_intent_mechanism <- function(data, inj_col) {
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' dat %>% matched_intent(inj_col = c(1, 2))
+#' dat %>% matrix_matched_intent(inj_col = c(1, 2))
 #'
-matched_intent <- function(data, inj_col) {
+matrix_matched_intent <- function(data, inj_col) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("tidyr", quietly = T)
@@ -115,7 +115,7 @@ matched_intent <- function(data, inj_col) {
 
 }
 
-# matched_mechanism ---------------------------------------------------------
+# matrix_matched_mechanism ---------------------------------------------------------
 
 #' Add matched mechanism fields for injury ICD-10-CM.
 #'
@@ -137,9 +137,9 @@ matched_intent <- function(data, inj_col) {
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' dat %>% matched_mechanism(inj_col = c(1, 2))
+#' dat %>% matrix_matched_mechanism(inj_col = c(1, 2))
 #'
-matched_mechanism <- function(data, inj_col) {
+matrix_matched_mechanism <- function(data, inj_col) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("tidyr", quietly = T)
@@ -170,6 +170,5 @@ matched_mechanism <- function(data, inj_col) {
     left_join(dat4, by = "u.id.") %>%
     mutate(across(all_of(sel_), replace_na, replace = 0)) %>%
     select(-u.id.)
-
 }
 

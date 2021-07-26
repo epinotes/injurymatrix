@@ -1,7 +1,7 @@
 
 # make the icd10cm regex
 
-icd_make_regex <- purrr::compose(
+make_regex <- purrr::compose(
   function(x) gsub("X", "^X", x),
   function(x) paste(x, collapse = "|"),
   function(x) gsub("(?<!^)x", ".", x, ignore.case = T, perl = T)
@@ -9,7 +9,7 @@ icd_make_regex <- purrr::compose(
 
 # cleaning the names for mechanism
 
-icd_clean_mech_names <- purrr::compose(
+clean_mech_names <- purrr::compose(
   # remove repeat "_" and extreme "_"
   function(x) gsub("(_)(?=_*\\1)|^_|_$", "", x, perl = T),
   # not [A-Za-z0-9_] and replace with "_"
@@ -74,9 +74,9 @@ find_diag <- function(data, expr, colvec, ignore.case = T, perl = T) {
 #' dat <- data.frame(x1 = letters[1:3], x2 = c("d", "a", "e"))
 #' library(dplyr)
 #' library(purrr)
-#' dat %>% mutate(x3 = icd_first_valid_regex(., colvec = c(1:2), pattern = "a"))
+#' dat %>% mutate(x3 = first_valid_regex(., colvec = c(1:2), pattern = "a"))
 #'
-icd_first_valid_regex <- function(data, colvec, pattern) {
+first_valid_regex <- function(data, colvec, pattern) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("purrr", quietly = T)
@@ -94,7 +94,7 @@ icd_first_valid_regex <- function(data, colvec, pattern) {
 
 # a row operation that will form an index vector of the first match of a pattern
 
-icd_first_valid_index <- function(data, colvec, pattern) {
+first_valid_index <- function(data, colvec, pattern) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("purrr", quietly = T)
