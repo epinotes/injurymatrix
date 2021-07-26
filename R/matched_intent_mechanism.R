@@ -30,7 +30,7 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -89,7 +89,7 @@ matrix_matched_intent <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -147,7 +147,7 @@ matrix_matched_mechanism <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = 1:nrow(.))
+    dplyr::mutate(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
