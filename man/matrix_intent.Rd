@@ -31,5 +31,5 @@ dat \%>\% matrix_intent(inj_col = c(1, 2), "untintentional", "assault")
 
 }
 \seealso{
-\code{\link{matched_intent}} for a more efficient approach
+\code{\link{matrix_matched_intent}} for a more efficient approach
 }

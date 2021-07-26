@@ -29,7 +29,7 @@ dat <- data.frame(
 
 }
 \seealso{
-\code{\link{matched_mechanism}} for a more efficient approach
+\code{\link{matrix_matched_mechanism}} for a more efficient approach
 
 dat %>% matrix_mechanism(inj_col = c(1, 2), "firearm", "fall")
 }

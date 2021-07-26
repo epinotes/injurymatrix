@@ -29,7 +29,7 @@ dat <- data.frame(
 
 }
 \seealso{
-\code{\link{matched_intent_mechanism}} for a more efficient approach
+\code{\link{matrix_matched_intent_mechanism}} for a more efficient approach
 
 dat %>% matrix_intent_mechanism(inj_col = c(1, 2), "untintentional", "assault")
 }

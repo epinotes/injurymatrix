@@ -16,7 +16,7 @@
 #'   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 #' )
 #'
-#' @seealso \code{\link{matched_intent_mechanism}} for a more efficient approach
+#' @seealso \code{\link{matrix_matched_intent_mechanism}} for a more efficient approach
 #'
 #' dat %>% matrix_intent_mechanism(inj_col = c(1, 2), "untintentional", "assault")
 #'
