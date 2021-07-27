@@ -25,12 +25,13 @@
 matrix_matched_intent_mechanism <- function(data, inj_col) {
 
   requireNamespace("dplyr", quietly = T)
+  requireNamespace("tibble", quietly = T)
   requireNamespace("tidyr", quietly = T)
   requireNamespace("fuzzyjoin", quietly = T)
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = c(1:nrow(.)))
+    tibble::add_column(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -85,11 +86,12 @@ matrix_matched_intent <- function(data, inj_col) {
 
   requireNamespace("dplyr", quietly = T)
   requireNamespace("tidyr", quietly = T)
+  requireNamespace("tibble", quietly = T)
   requireNamespace("fuzzyjoin", quietly = T)
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = c(1:nrow(.)))
+    tibble::add_column(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
@@ -147,7 +149,7 @@ matrix_matched_mechanism <- function(data, inj_col) {
 
 
   dat2 <- data %>%
-    dplyr::mutate(u.id. = c(1:nrow(.)))
+    tibble::add_column(u.id. = c(1:nrow(.)))
 
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
