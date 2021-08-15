@@ -12,7 +12,7 @@ matrix_matched_mechanism(data, inj_col)
 \item{inj_col}{ecode and diagnosis column indices}
 }
 \value{
-return the input with additional variables (mechanisms that were matched in the data)
+return the input with additional variables (32 mechanisms)
 }
 \description{
 , reference

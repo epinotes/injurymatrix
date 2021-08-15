@@ -12,7 +12,7 @@ matrix_matched_intent_mechanism(data, inj_col)
 \item{inj_col}{ecode and diagnosis column indices}
 }
 \value{
-return the input with additional variables (intent_mechanism combinations, that were matched in the data)
+return the input with additional variables (92 intent_mechanism combinations)
 }
 \description{
 , reference

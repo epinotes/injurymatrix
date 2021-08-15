@@ -12,7 +12,7 @@ matrix_matched_intent(data, inj_col)
 \item{inj_col}{ecode and diagnosis column indices}
 }
 \value{
-return the input with additional variables (intents that were matched in the data)
+return the input with additional variables (5 intents)
 }
 \description{
 , reference
