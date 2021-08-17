@@ -36,7 +36,6 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
   col_to_add_ <- rep(NA_character_, length(added_names_)) %>%
     set_names(added_names_)
 
-
   dat2 <- data %>%
     tibble::add_column(u.id. = c(1:nrow(.)))
 
@@ -97,7 +96,7 @@ matrix_matched_intent <- function(data, inj_col) {
 
   data_names_ <- names(data)
 
-  added_names_ <- icd10cm_intent_regex$intent_mechanism
+  added_names_ <- icd10cm_intent_regex $intent_mechanism
 
   col_to_add_ <- rep(NA_character_, length(added_names_)) %>%
     set_names(added_names_)
@@ -108,7 +107,7 @@ matrix_matched_intent <- function(data, inj_col) {
   dat3 <- dat2 %>%
     select(u.id., all_of(inj_col)) %>%
     pivot_longer(cols = -c(u.id.), names_to = "diag", values_to = "icd10cm") %>%
-    fuzzyjoin::regex_left_join(icd10cm_intent_regex %>%
+    fuzzyjoin::regex_left_join(icd10cm_intent_regex  %>%
                                  select(icd10cm_regex, intent_mechanism),
                                by = c(icd10cm = "icd10cm_regex")) %>%
     filter(!is.na(intent_mechanism)) %>%
@@ -189,4 +188,3 @@ matrix_matched_mechanism <- function(data, inj_col) {
     dplyr::mutate(across(all_of(added_names_), replace_na, replace = 0)) %>%
     select(all_of(data_names_), all_of(added_names_))
 }
-
