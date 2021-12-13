@@ -26,6 +26,7 @@ dat <- data.frame(
   d1 = c("T63023", "X92821", "X99100", "T360x"),
   d2 = c("T65823", "Y030x0", "T17200", "V0100x")
 )
+dat \%>\% matrix_intent_mechanism(inj_col = c(1, 2), "fall") # by default all intents and mechanisms
 
 }
 \seealso{

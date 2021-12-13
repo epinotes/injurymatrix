@@ -96,7 +96,7 @@ matrix_matched_intent <- function(data, inj_col) {
 
   data_names_ <- names(data)
 
-  added_names_ <- icd10cm_intent_regex $intent_mechanism
+  added_names_ <- icd10cm_intent_regex$intent_mechanism
 
   col_to_add_ <- rep(NA_character_, length(added_names_)) %>%
     set_names(added_names_)
