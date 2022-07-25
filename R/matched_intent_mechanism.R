@@ -57,7 +57,7 @@ matrix_matched_intent_mechanism <- function(data, inj_col) {
 
   dat2 %>%
     left_join(dat4, by = "u.id.") %>%
-    dplyr::mutate(across(all_of(added_names_), replace_na, replace = 0)) %>%
+    dplyr::mutate(across(all_of(added_names_), replace_na, replace = "0")) %>%
     select(all_of(data_names_), all_of(added_names_))
 
 }
